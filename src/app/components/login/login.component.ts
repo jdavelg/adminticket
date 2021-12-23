@@ -5,11 +5,12 @@ import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit {
+
   title = 'msal-angular-tutorial';
   isIframe = false;
   loginDisplay = false;
@@ -37,7 +38,12 @@ export class AppComponent implements OnInit, OnDestroy {
       this.authService.loginRedirect();
     }
   }
-
+  logout() { // Add log out function here
+    this.authService.logoutRedirect({
+      postLogoutRedirectUri: 'http://localhost:4200'
+    });
+  }
+  
   setLoginDisplay() {
     this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
   }

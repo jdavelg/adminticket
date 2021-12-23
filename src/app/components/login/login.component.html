@@ -1,0 +1,22 @@
+<!-- <div class="container" style="min-height: 100%;min-width: 100%; text-align: center;"> -->
+<div class="center-screen">
+  <div class="row">
+    <div class="mainimg">
+      <img src="../assets/tcs.gif">
+    </div>
+  </div>
+  <div class="row">
+    <div class="container">
+      <button type="button" class="btn btn-success btn-lg" *ngIf="!loginDisplay" (click)="login()">Iniciar
+        sesion</button>
+      <button type="button" class="btn btn-primary btn-lg" *ngIf="loginDisplay" [routerLink]="['profile']">Continuar a
+        plataforma</button>
+
+     
+    </div>
+    <div class="container">
+      <button type="button" class="btn btn-danger btn-lg" *ngIf="loginDisplay" (click)="logout()">Prefiero salir</button>
+    </div>
+  </div>
+
+</div>
