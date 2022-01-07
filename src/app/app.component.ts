@@ -41,6 +41,11 @@ export class AppComponent implements OnInit, OnDestroy {
   setLoginDisplay() {
     this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
   }
+  logout() { // Add log out function here
+    this.authService.logoutRedirect({
+      postLogoutRedirectUri: 'http://localhost:4200'
+    });
+  }
 
   ngOnDestroy(): void {
     this._destroying$.next(undefined);

@@ -19,6 +19,21 @@ import { TicketsComponent } from './components/tickets/tickets.component';
 import { DevicesComponent } from './components/devices/devices.component';
 import { LoginComponent } from './components/login/login.component';
 
+
+import {TableModule} from 'primeng/table';
+import {CalendarModule} from 'primeng/calendar';
+import {SliderModule} from 'primeng/slider';
+import {DialogModule} from 'primeng/dialog';
+import {MultiSelectModule} from 'primeng/multiselect';
+import {ContextMenuModule} from 'primeng/contextmenu';
+import {ButtonModule} from 'primeng/button';
+import {ToastModule} from 'primeng/toast';
+import {InputTextModule} from 'primeng/inputtext';
+import {ProgressBarModule} from 'primeng/progressbar';
+import {DropdownModule} from 'primeng/dropdown';
+import { UserdetailComponent } from './components/userdetail/userdetail.component';
+import { DevicedetailComponent } from './components/devicedetail/devicedetail.component';
+
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 
 @NgModule({
@@ -29,7 +44,10 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
     UsersComponent,
     TicketsComponent,
     DevicesComponent,
-    LoginComponent
+    LoginComponent,
+    
+    UserdetailComponent,
+    DevicedetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +57,17 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
     MatToolbarModule,
     MatListModule,
     HttpClientModule,
+    TableModule,
+    CalendarModule,
+		SliderModule,
+		DialogModule,
+		MultiSelectModule,
+		ContextMenuModule,
+		DropdownModule,
+		ButtonModule,
+		ToastModule,
+    InputTextModule,
+    ProgressBarModule,
     MsalModule.forRoot( new PublicClientApplication({
       auth: {
         clientId: '30420230-c8c5-4cd1-8cd1-5da3658940e0', // This is your client ID

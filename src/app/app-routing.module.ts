@@ -12,7 +12,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: LoginComponent
+    component: HomeComponent
   }];
 const isIframe = window !== window.parent && !window.opener;
 @NgModule({
