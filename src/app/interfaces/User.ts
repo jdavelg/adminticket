@@ -1,6 +1,10 @@
 export interface User {
-    vin;
-    year;
-    brand;
-    color;
+    id;
+    role;
+    email;
+    firstName;
+    lastName;
+    departmentId;
+    tokenDevice;
+   
 }
