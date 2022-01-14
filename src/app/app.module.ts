@@ -33,6 +33,7 @@ import {ProgressBarModule} from 'primeng/progressbar';
 import {DropdownModule} from 'primeng/dropdown';
 import { UserdetailComponent } from './components/userdetail/userdetail.component';
 import { DevicedetailComponent } from './components/devicedetail/devicedetail.component';
+import { FormsModule } from '@angular/forms';
 
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 
@@ -52,6 +53,7 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     AppRoutingModule,
     MatButtonModule,
     MatToolbarModule,
