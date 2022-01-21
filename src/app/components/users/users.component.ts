@@ -20,7 +20,7 @@ import { UsersService } from 'src/app/services/users.service';
 export class UsersComponent implements OnInit {
   users: User[]
   user: User
-
+clonedUsers: { [s: string]: User; } = {};
   constructor(private _userService: UsersService, private messageService: MessageService) {
 
   }
@@ -34,7 +34,7 @@ export class UsersComponent implements OnInit {
     { label: 'DEFAULT', value: 'DEFAULT' },
     { label: 'TECHNICAL', value: 'TECHNICAL' }
   ]
-  clonedUsers: { [s: string]: User; } = {};
+  
   getUsers() {
     this._userService.getUsers().subscribe(res => {
       if (res) {
@@ -57,18 +57,34 @@ export class UsersComponent implements OnInit {
 
   onRowEditSave(user: any) {
     if (user) {
-     console.log(user);
-     
+      if (user.created_at) {
+        delete user.created_at
+      }
 
-      delete this.clonedUsers[user.id];
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'user is updated' });
+      if (user.updated_at) {
+        delete user.updated_at
+      }
+      this._userService.updateUser(user).subscribe(
+        res => {
+          delete this.clonedUsers[user.id];
+          this.getUsers()
+          this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Usuario se ha actualizado' });
+        },
+        err => {
+          delete this.clonedUsers[user.id];
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un error al conectarse al servidor' });
+        }
+      )
+
+
+
     }
     else {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid Price' });
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'error al seleccionar usuario' });
     }
   }
 
-  onRowEditCancel(user: any) {
+  onRowEditCancel(user?: any) {
     this.messageService.add({ severity: 'error', summary: 'Cancelado', detail: 'No se actualizó el registro' });
   }
 

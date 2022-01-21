@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http"; // Import 
+import { HTTP_INTERCEPTORS, HttpClientModule, HttpHeaders } from "@angular/common/http"; // Import 
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -34,7 +34,18 @@ import {DropdownModule} from 'primeng/dropdown';
 import { UserdetailComponent } from './components/userdetail/userdetail.component';
 import { DevicedetailComponent } from './components/devicedetail/devicedetail.component';
 import { FormsModule } from '@angular/forms';
-
+import { DepartmentsComponent } from './components/departments/departments.component';
+import { SharedModule } from 'primeng/api';
+import {DynamicDialogModule} from 'primeng/dynamicdialog';
+import {TooltipModule} from 'primeng/tooltip';
+import {ToolbarModule} from 'primeng/toolbar';
+import {ConfirmationService} from 'primeng/api';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import { TcategoryComponent } from './components/tcategory/tcategory.component';
+import { TtypesComponent } from './components/ttypes/ttypes.component';
+import { MarkComponent } from './components/mark/mark.component';
+import { EquipmentTypeComponent } from './components/equipment-type/equipment-type.component';
+import { ModelsComponent } from './components/models/models.component';
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 
 @NgModule({
@@ -49,27 +60,40 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
     
     UserdetailComponent,
     DevicedetailComponent,
+    DepartmentsComponent,
+    TcategoryComponent,
+    TtypesComponent,
+    MarkComponent,
+    EquipmentTypeComponent,
+    ModelsComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+ 
     FormsModule,
+    DynamicDialogModule,
     AppRoutingModule,
     MatButtonModule,
     MatToolbarModule,
-    MatListModule,
-    HttpClientModule,
+    MatListModule,  
+    ToolbarModule,
+    HttpClientModule, 
+    SharedModule ,
+    TooltipModule,
     TableModule,
     CalendarModule,
 		SliderModule,
+     ConfirmDialogModule,
 		DialogModule,
 		MultiSelectModule,
 		ContextMenuModule,
 		DropdownModule,
-		ButtonModule,
+		ButtonModule,    
 		ToastModule,
     InputTextModule,
     ProgressBarModule,
+  
     MsalModule.forRoot( new PublicClientApplication({
       auth: {
         clientId: '30420230-c8c5-4cd1-8cd1-5da3658940e0', // This is your client ID
@@ -94,6 +118,7 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
     })
   ],
   providers: [
+  
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MsalInterceptor,

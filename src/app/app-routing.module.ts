@@ -5,6 +5,12 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { MsalGuard } from '@azure/msal-angular';
 import { LoginComponent } from './components/login/login.component';
 import { UsersComponent } from './components/users/users.component';
+import { DepartmentsComponent } from './components/departments/departments.component';
+import { TtypesComponent } from './components/ttypes/ttypes.component';
+import { TcategoryComponent } from './components/tcategory/tcategory.component';
+import { MarkComponent } from './components/mark/mark.component';
+import { EquipmentTypeComponent } from './components/equipment-type/equipment-type.component';
+import { ModelsComponent } from './components/models/models.component';
 
 const routes: Routes = [
 
@@ -15,11 +21,41 @@ const routes: Routes = [
   {
     path: 'profile',
     component: HomeComponent,
-    canActivate: [MsalGuard]
+   /*  canActivate: [MsalGuard] */
   },
   {
     path: 'users',
     component: UsersComponent,
+    /* canActivate: [MsalGuard] */
+  },
+  {
+    path: 'departments',
+    component: DepartmentsComponent,
+    /* canActivate: [MsalGuard] */
+  },
+  {
+    path: 'TicketTypes',
+    component: TtypesComponent,
+    /* canActivate: [MsalGuard] */
+  },
+  {
+    path: 'TicketCategories',
+    component: TcategoryComponent,
+    /* canActivate: [MsalGuard] */
+  },
+  {
+    path: 'brands',
+    component: MarkComponent,
+    /* canActivate: [MsalGuard] */
+  },
+  {
+    path: 'equipment-types',
+    component: EquipmentTypeComponent    ,
+    /* canActivate: [MsalGuard] */
+  },
+  {
+    path: 'equipment-models',
+    component: ModelsComponent    ,
     /* canActivate: [MsalGuard] */
   }
 ];
