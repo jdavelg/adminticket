@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { EditableRow, TableModule } from 'primeng/table';
+import { EditableRow, Table, TableModule } from 'primeng/table';
 import { User } from 'src/app/interfaces/User';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -20,12 +20,14 @@ import { UsersService } from 'src/app/services/users.service';
 export class UsersComponent implements OnInit {
   users: User[]
   user: User
-clonedUsers: { [s: string]: User; } = {};
+  departments: []
+  clonedUsers: { [s: string]: User; } = {};
   constructor(private _userService: UsersService, private messageService: MessageService) {
 
   }
 
   ngOnInit(): void {
+    this.getDepartments()
     this.getUsers()
   }
 
@@ -34,21 +36,28 @@ clonedUsers: { [s: string]: User; } = {};
     { label: 'DEFAULT', value: 'DEFAULT' },
     { label: 'TECHNICAL', value: 'TECHNICAL' }
   ]
-  
+
   getUsers() {
     this._userService.getUsers().subscribe(res => {
       if (res) {
-        console.log(res);
         this.users = res
-
       }
     },
       err => {
-        console.log(err);
-
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un error al conectarse al servidor' });
       })
   }
 
+  getDepartments() {
+    this._userService.getDepartments().subscribe(res => {
+      if (res) {
+        this.departments = res
+      }
+    },
+      err => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un error al conectarse al servidor' });
+      })
+  }
   onRowEditInit(user: any) {
     /*   console.log(user); */
 
@@ -86,6 +95,9 @@ clonedUsers: { [s: string]: User; } = {};
 
   onRowEditCancel(user?: any) {
     this.messageService.add({ severity: 'error', summary: 'Cancelado', detail: 'No se actualizó el registro' });
+  }
+  clear(table: Table) {
+    table.clear();
   }
 
 }

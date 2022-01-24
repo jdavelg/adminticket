@@ -1,13 +1,19 @@
 <div class="m-5">
     <p-toast></p-toast>
     <div class="card">
-   
-        <p-table #dt2 [value]="users" dataKey="id" editMode="row" responsiveLayout="scroll" [globalFilterFields]="['role','id']">
+
+        <p-table #dt2 [value]="users" dataKey="id" [rows]="10" [paginator]="true" editMode="row"
+            responsiveLayout="scroll" [globalFilterFields]="['role','id','first_name', 'last_name']"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [showCurrentPageReport]="true">
             <ng-template pTemplate="caption">
-                <div class="p-d-flex">
-                    <span class="p-input-icon-left p-ml-auto">
+                <div class="flex">
+                    <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"
+                        (click)="clear(dt2)"></button>
+                    <span class="p-input-icon-left ml-auto">
                         <i class="pi pi-search"></i>
-                        <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')" placeholder="Buscar" />
+                        <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')"
+                            placeholder="buscar palabra clave" />
                     </span>
                 </div>
             </ng-template>
@@ -17,6 +23,7 @@
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Email</th>
+                    <th>Departamento</th>
                     <th>rol</th>
                     <th style="width:8rem">acciones</th>
 
@@ -26,24 +33,45 @@
                 <tr [pEditableRow]="user">
                     <td>{{user.id}}</td>
                     <td>{{user.first_name}}</td>
-                    <td>{{user.id}}</td>
-                    <td>{{user.id}}</td>
+                    <td>{{user.last_name}}</td>
+                    <td>{{user.email}}</td>
                     <td>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
-                                <p-dropdown [options]="statuses" [(ngModel)]="user.role"  [style]="{'width':'100%'}"></p-dropdown>
+                                <p-dropdown [options]="departments" [(ngModel)]="user.department_id"
+                                    [style]="{'width':'100%'}" optionValue="id"></p-dropdown>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                <span *ngFor="let department of departments">
+                                    <strong *ngIf="department.id==user.department_id">{{department.name}}</strong>
+
+                                </span>
+
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <p-dropdown [options]="statuses" [(ngModel)]="user.role" [style]="{'width':'100%'}">
+                                </p-dropdown>
                             </ng-template>
                             <ng-template pTemplate="output">
                                 {{user.role}}
                             </ng-template>
                         </p-cellEditor>
-                      <!--   {{user.id}} -->
+                        <!--   {{user.id}} -->
                     </td>
-                  <td style="text-align:center">
-                        <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(user)" class="p-button-rounded p-button-text"></button>
-                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(user)" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
-                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(user, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
-                    </td> 
+                    <td style="text-align:center">
+                        <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+                            (click)="onRowEditInit(user)" class="p-button-rounded p-button-text"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
+                            (click)="onRowEditSave(user)"
+                            class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+                            (click)="onRowEditCancel(user, ri)"
+                            class="p-button-rounded p-button-text p-button-danger"></button>
+                    </td>
                 </tr>
             </ng-template>
         </p-table>
