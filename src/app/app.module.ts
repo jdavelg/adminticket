@@ -46,6 +46,9 @@ import { TtypesComponent } from './components/ttypes/ttypes.component';
 import { MarkComponent } from './components/mark/mark.component';
 import { EquipmentTypeComponent } from './components/equipment-type/equipment-type.component';
 import { ModelsComponent } from './components/models/models.component';
+
+import {MenubarModule} from 'primeng/menubar';
+import {MenuItem} from 'primeng/api';
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 
 @NgModule({
@@ -92,6 +95,7 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
 		ButtonModule,    
 		ToastModule,
     InputTextModule,
+    MenubarModule,
     ProgressBarModule,
   
     MsalModule.forRoot( new PublicClientApplication({

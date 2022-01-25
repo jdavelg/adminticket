@@ -34,12 +34,12 @@ const routes: Routes = [
     /* canActivate: [MsalGuard] */
   },
   {
-    path: 'TicketTypes',
+    path: 'ticket-types',
     component: TtypesComponent,
     /* canActivate: [MsalGuard] */
   },
   {
-    path: 'TicketCategories',
+    path: 'ticket-categories',
     component: TcategoryComponent,
     /* canActivate: [MsalGuard] */
   },
