@@ -46,7 +46,7 @@ import { TtypesComponent } from './components/ttypes/ttypes.component';
 import { MarkComponent } from './components/mark/mark.component';
 import { EquipmentTypeComponent } from './components/equipment-type/equipment-type.component';
 import { ModelsComponent } from './components/models/models.component';
-
+import {CardModule} from 'primeng/card';
 import {MenubarModule} from 'primeng/menubar';
 import {MenuItem} from 'primeng/api';
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
@@ -89,6 +89,7 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
 		SliderModule,
      ConfirmDialogModule,
 		DialogModule,
+    CardModule,
 		MultiSelectModule,
 		ContextMenuModule,
 		DropdownModule,
