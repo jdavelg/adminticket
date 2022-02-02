@@ -13,6 +13,10 @@ export class DevicesService {
   getMarks(): Observable<any> {
     return this.http.get(shared.url + 'marks')
   }
+
+ 
+  
+
   updateMark(mark: any): Observable<any> {
     /* let params= JSON.stringify(department) */
     let headers = new HttpHeaders().set('Content-Type', 'application/json')
@@ -66,7 +70,7 @@ export class DevicesService {
   updateDevice(device: any): Observable<any> {
     /* let params= JSON.stringify(department) */
     let headers = new HttpHeaders().set('Content-Type', 'application/json')
-    return this.http.put(shared.url + 'itequipments/' + device.id, device, { headers: headers })
+    return this.http.put(shared.url + 'itequipments/' + device.inventory_cod, device, { headers: headers })
   }
 
   deleteDevice(id: any): Observable<any> {

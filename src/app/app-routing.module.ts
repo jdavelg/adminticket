@@ -11,6 +11,7 @@ import { TcategoryComponent } from './components/tcategory/tcategory.component';
 import { MarkComponent } from './components/mark/mark.component';
 import { EquipmentTypeComponent } from './components/equipment-type/equipment-type.component';
 import { ModelsComponent } from './components/models/models.component';
+import { DevicesComponent } from './components/devices/devices.component';
 
 const routes: Routes = [
 
@@ -56,6 +57,11 @@ const routes: Routes = [
   {
     path: 'equipment-models',
     component: ModelsComponent    ,
+    /* canActivate: [MsalGuard] */
+  },
+  {
+    path: 'devices',
+    component: DevicesComponent    ,
     /* canActivate: [MsalGuard] */
   }
 ];

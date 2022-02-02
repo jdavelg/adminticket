@@ -30,6 +30,7 @@ import {ButtonModule} from 'primeng/button';
 import {ToastModule} from 'primeng/toast';
 import {InputTextModule} from 'primeng/inputtext';
 import {ProgressBarModule} from 'primeng/progressbar';
+import {InputNumberModule} from 'primeng/inputnumber';
 import {DropdownModule} from 'primeng/dropdown';
 import { UserdetailComponent } from './components/userdetail/userdetail.component';
 import { DevicedetailComponent } from './components/devicedetail/devicedetail.component';
@@ -49,6 +50,7 @@ import { ModelsComponent } from './components/models/models.component';
 import {CardModule} from 'primeng/card';
 import {MenubarModule} from 'primeng/menubar';
 import {MenuItem} from 'primeng/api';
+
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 
 @NgModule({
@@ -85,7 +87,7 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
     SharedModule ,
     TooltipModule,
     TableModule,
-    CalendarModule,
+    
 		SliderModule,
      ConfirmDialogModule,
 		DialogModule,
@@ -98,7 +100,8 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
     InputTextModule,
     MenubarModule,
     ProgressBarModule,
-  
+    InputNumberModule,
+    CalendarModule,
     MsalModule.forRoot( new PublicClientApplication({
       auth: {
         clientId: '30420230-c8c5-4cd1-8cd1-5da3658940e0', // This is your client ID

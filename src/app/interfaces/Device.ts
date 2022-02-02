@@ -1,18 +1,19 @@
 export interface Device {
+    fecha?;
     inventory_cod?;
-    equipmentTypesId?;
-    modelId?;
-    markId?;
-    serialNumber?;
-    datePurchase?;
+    equipment_types_id?;
+    model_id?;
+    mark_id?;
+    serial_number?;
+    date_purchase?;
     warranty?;
     price?;
-    preventiveMaintenance?;
+    preventive_maintenance?;
     specs?;
     location?;
-    nameEquipment;
     state?;
-    EquipmentType?;
-    model?;
-    mark?;
+    created_at?;
+    updated_at?;
+
+
 }

@@ -1,81 +1,296 @@
-<div class="p-grid">
-   
-    <div class="p-col-8">
-<p-table [value]="devices">
-    <ng-template pTemplate="header">
-        <tr>
-            <th>Vin</th>
-            <th>Year</th>
-            <th>Brand</th>
-            <th>Color</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-device >
-        <tr>
-            <!-- <td>{{device.vin}}</td>
-            <td>{{device.year}}</td>
-            <td>{{device.brand}}</td>
-            <td>{{device.color}}</td> -->
-        </tr>
-    </ng-template>
-</p-table>
-    </div>
+<p-toast></p-toast>
 
+<div class="card">
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2"
+                (click)="openNew()"></button>
+            <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger"
+                (click)="deleteSelectedDevices()" [disabled]="!selectedDevices || !selectedDevices.length"></button>
+        </ng-template>
 
-    <!-- start form -->
-   <!--  <div class="p-col-4">
-        <div class="container">
-            <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
-                <div class="form-group">
-                    <label for="name">Nombre</label>
-                    <input type="text" #name="ngModel" [(ngModel)]="product.name" name="name" class="form-control"
-                        required>
-                </div>
+        <!--     <ng-template pTemplate="right">
+            <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="p-mr-2 p-d-inline-block"></p-fileUpload>
+            <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+        </ng-template> -->
+    </p-toolbar>
 
-                <div class="form-group">
-                    <label for="brandId">Marca</label>
-                    <select class="form-select" name="brandId" #brandId="ngModel" [(ngModel)]="product.brandId"
-                        required>
+    <p-table #dt [value]="devices" [rows]="10" [paginator]="true"
+        [globalFilterFields]="['model_id','inventory_cod','mark_id','equipment_types_id','serial_number','date_purchase']"
+        responsiveLayout="scroll" [(selection)]="selectedDevices" [rowHover]="true" dataKey="inventory_cod"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <h5 class="p-m-0">Manage Devices</h5>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Buscar..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="inventary_cod">Id <p-sortIcon field="id"></p-sortIcon>
+                </th>
+                <th pSortableColumn="equipment_types_id">Tipo de equipo <p-sortIcon field="equipment_types_id">
+                    </p-sortIcon>
+                <th pSortableColumn="model_id">Modelo <p-sortIcon field="model_id"></p-sortIcon>
+                <th pSortableColumn="mark_id">Marca <p-sortIcon field="mark_id"></p-sortIcon>
+                </th>
+                <th pSortableColumn="serial_number">Serial number <p-sortIcon field="serial_number"></p-sortIcon>
+                </th>
+                <th pSortableColumn="date_purchase">Fecha de compro <p-sortIcon field="date_purchase"></p-sortIcon>
+                </th>
+                <th pSortableColumn="warranty">Garantía (en dias)<p-sortIcon field="warranty"></p-sortIcon>
+                </th>
+                <th pSortableColumn="price">Precio<p-sortIcon field="price"></p-sortIcon>
+                </th>
+                <th pSortableColumn="preventive_maintenance">Periodicidad de mantenimiento(dias)<p-sortIcon
+                        field="preventive_maintenance"></p-sortIcon>
+                </th>
+                <th pSortableColumn="specs">Especificaciones<p-sortIcon field="specs"></p-sortIcon>
+                </th>
+                <th pSortableColumn="location">Ubicacion<p-sortIcon field="location"></p-sortIcon>
+                </th>
+                <th pSortableColumn="state">Estado<p-sortIcon field="state"></p-sortIcon>
+                </th>
 
-                        <option value="{{brand._id}}" *ngFor="let brand of brands">{{brand.name}}</option>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-device>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="device"></p-tableCheckbox>
+                </td>
+                <td>{{device.inventory_cod}}</td>
 
-                    </select>
-                </div>
+                <td *ngIf="!equipmentTypes">
 
+                    No hay tipos disponibles
 
-                <div class="form-group">
-                    <label for="category">categoria/s</label>
-                     <select class="form-select" #category="ngModel" [(ngModel)]="product.category" name="category" >
+                </td>
+                <td *ngIf="equipmentTypes">
+                    <ng-container *ngFor="let type of equipmentTypes">
+                        <strong *ngIf="device.equipment_types_id && type.id == device.equipment_types_id ; ">
+                            {{type.name}}
+                        </strong>
 
-                        <option *ngFor="let category of categories" value="{{category._id}}">{{category.name}}</option> 
-                       </select>
-              
-                   
-                </div>
-                <div class="form-group">
-                    <label for="price">Precio</label>
-                    <input type="number" #price="ngModel" [(ngModel)]="product.price" name="price" class="form-control"
-                        required>
-                </div>
-                <div class="form-group">
-                    <label for="image" class="form-label">Imagen</label>
-                    <input type="file" (change)="onFileSelected($event)" class="form-control">
-                   
-                </div>
-                <div class="form-group">
-                    <label for="link">Link</label>
-                    <input type="text" #link="ngModel" [(ngModel)]="product.link" name="link" class="form-control"
-                        required>
-                </div>
+                    </ng-container>
+                </td>
+                <td *ngIf="!models">
 
-                <button type="submit" class="btn btn-outline-success mt-3" [disabled]="registerForm.invalid">
-                    Guardar Nuevo Dispositivo
-                </button>
-            </form>
-        </div>
+                    No hay modelos de equipo disponibles
 
-    </div> -->
+                </td>
+                <td *ngIf="models ">
+                    <ng-container *ngFor="let model of models">
+                        <div *ngIf="device.model_id && model.id == device.model_id ; ">
+                            {{model.name}}
+                        </div>
+
+                    </ng-container>
+                </td>
+
+                <td *ngIf="!marks">
+
+                    No hay marcas de equipo disponibles
+
+                </td>
+                <td *ngIf="marks ">
+                    <span *ngFor="let mark of marks">
+                        <strong *ngIf="device.mark_id && mark.id == device.mark_id ; ">
+                            {{mark.name}}
+                        </strong>
+                    </span>
+                </td>
+
+                <td>{{device.serial_number}}</td>
+                <td>{{device.fecha}}</td>
+                <td>{{device.warranty}}</td>
+                <td>{{device.price}}</td>
+                <td>{{device.preventive_maintenance}}</td>
+                <td>{{device.specs}}</td>
+                <td>{{device.location}}</td>
+                <td>{{device.state}}</td>
+
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
+                        (click)="editDevice(device)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                        (click)="deleteDevice(device)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                En total hay {{devices ? devices.length : 0 }} dispositivos.
+            </div>
+        </ng-template>
+    </p-table>
 </div>
 
+<p-dialog [(visible)]="deviceDialog" [style]="{width: '450px'}" header="Dispositivos Details" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="content">
+
+        <!--   <div class="p-field">
+            <label for="id">ID</label>
+            <input type="text" pInputText id="id" [(ngModel)]="department.id"  autofocus readonly>
+            <small class="p-error" *ngIf="submitted && !department.name">id is required.</small>
+        </div> -->
+        <div class="field m-5">
+            <label for="mark_id">Marca</label>
+            <p>
+                <p-dropdown [(ngModel)]="device.mark_id" inputId="mark_id" [options]="marks" placeholder="Selecciona"
+                    optionValue="id" [style]="{position: 'absolute'}">
+                    <ng-template let-mark pTemplate="selectedItem">
+                        <div *ngIf="device.mark_id">
+                            <div *ngIf="device.mark_id== mark.id">{{mark.name}}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template let-mark pTemplate="item">
+                        <div>{{mark.name}}</div>
+                    </ng-template>
+                </p-dropdown>
+            </p>
+
+        </div>
+
+        <div class="field m-5">
+            <label for="model_id">Modelo</label>
+
+            <p-dropdown [(ngModel)]="device.model_id" inputId="model_id" [options]="models" placeholder="Selecciona"
+                optionValue="id" [style]="{position: 'absolute'}">
+                <ng-template let-model pTemplate="selectedItem">
+                    <div *ngIf="device.model_id">
+                        <div *ngIf="device.model_id== model.id">{{model.name}}</div>
+                    </div>
+                </ng-template>
+                <ng-template let-model pTemplate="item">
+                    <div>{{model.name}}</div>
+                </ng-template>
+            </p-dropdown>
 
 
+        </div>
+
+        <div class="field m-5">
+            <label for="equipment_types_id">Tipo de equipo</label>
+
+            <p-dropdown [(ngModel)]="device.equipment_types_id" inputId="equipment_types_id" [options]="equipmentTypes"
+                placeholder="Selecciona" optionValue="id" [style]="{position: 'absolute'}">
+                <ng-template let-type pTemplate="selectedItem">
+                    <div *ngIf="device.equipment_types_id">
+                        <div *ngIf="device.equipment_types_id== type.id">{{type.name}}</div>
+                    </div>
+                </ng-template>
+                <ng-template let-type pTemplate="item">
+                    <div>{{type.name}}</div>
+                </ng-template>
+            </p-dropdown>
+
+
+        </div>
+
+        <div class="field">
+            <label for="serial_number">Numero de serie</label>
+            <input type="text" pInputText id="serial_number" [(ngModel)]="device.serial_number" required autofocus />
+            <small class="p-error" *ngIf="submitted && !device.serial_number">El numero de serie es requerido.</small>
+        </div>
+        <div class="field">
+            <label for="date_purchase">Fecha de compra</label>
+            <p-calendar [(ngModel)]="device.date_purchase" dateFormat="dd.mm.yy" [showIcon]="true" [defaultDate]="null" >
+            </p-calendar>
+            <small class="p-error" *ngIf="submitted && !device.date_purchase">la fecha de compra es requerida.</small>
+        </div>
+
+        <div class="field">
+            <label for="price">Precio de compra</label>
+            <p-inputNumber [(ngModel)]="device.price" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
+            <small class="p-error" *ngIf="submitted && !device.price">El precio de compra es requerida.</small>
+        </div>
+
+        <div class="field">
+            <label for="warranty">Dias de garantia</label>
+            <p-inputNumber [(ngModel)]="device.warranty"></p-inputNumber>
+            <small class="p-error" *ngIf="submitted && !device.warranty">La garantia de compra es requerida.</small>
+        </div>
+
+        <div class="field">
+            <label for="preventive_maintenance">Periodicidad de mantenimiento(en dias)</label>
+            <p-inputNumber [(ngModel)]="device.preventive_maintenance"></p-inputNumber>
+            <small class="p-error" *ngIf="submitted && !device.preventive_maintenance">El mantenimiento es
+                requerido.</small>
+        </div>
+
+
+        <div class="field">
+            <label for="specs">Especificaciones</label>
+            <input type="text" pInputText id="specs" [(ngModel)]="device.specs" required autofocus />
+            <small class="p-error" *ngIf="submitted && !device.specs">Las Especificaciones son requeridas.</small>
+        </div>
+
+        <!--  <div class="p-field">
+            <label for="created_at">Fecha de creacion</label>
+            <input mark="text" pInputText id="created_at" [(ngModel)]="department.created_at"  autofocus readonly>
+            <small class="p-error" *ngIf="submitted && !department.name">id is required.</small>
+        </div> -->
+        <!--   <div class="p-field">
+            <label for="description">Description</label>
+            <textarea id="description" pInputTextarea [(ngModel)]="department.description" required rows="3" cols="20"></textarea>
+        </div> -->
+        <!--      <div class="p-field">
+            <label for="inventoryStatus">Inventory Status</label>
+            <p-dropdown [(ngModel)]="department.inventoryStatus" inputId="inventoryStatus" [options]="statuses" placeholder="Select">
+                <ng-template let-option pTemplate="item">
+                    <span [class]="'department-badge status-' + option.value">{{option.label}}</span>
+                </ng-template>
+            </p-dropdown>
+        </div>
+
+        <div class="p-field">
+            <label class="p-mb-3">Category</label>
+            <div class="p-formgrid p-grid">
+                <div class="p-field-radiobutton p-col-6">
+                    <p-radioButton id="mark1" name="mark" value="Accessories" [(ngModel)]="department.mark"></p-radioButton>
+                    <label for="mark1">Accessories</label>
+                </div>
+                <div class="p-field-radiobutton p-col-6">
+                    <p-radioButton id="mark2" name="mark" value="Clothing" [(ngModel)]="department.mark"></p-radioButton>
+                    <label for="mark2">Clothing</label>
+                </div>
+                <div class="p-field-radiobutton p-col-6">
+                    <p-radioButton id="mark3" name="mark" value="Electronics" [(ngModel)]="department.mark"></p-radioButton>
+                    <label for="mark3">Electronics</label>
+                </div>
+                <div class="p-field-radiobutton p-col-6">
+                    <p-radioButton id="mark4" name="mark" value="Fitness" [(ngModel)]="department.mark"></p-radioButton>
+                    <label for="mark4">Fitness</label>
+                </div>
+            </div>
+        </div> -->
+
+        <!--  <div class="p-formgrid p-grid">
+            <div class="p-field p-col">
+                <label for="price">Price</label>
+                <p-inputNumber id="price" [(ngModel)]="department.price" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
+            </div>
+            <div class="p-field p-col">
+                <label for="quantity">Quantity</label>
+                <p-inputNumber id="quantity" [(ngModel)]="department.quantity"></p-inputNumber>
+            </div>
+        </div> -->
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveDevice()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
