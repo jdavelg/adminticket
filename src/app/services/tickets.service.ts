@@ -14,6 +14,14 @@ export class TicketsService {
     return this.http.get(shared.url+'tickets/all')
   }
 
+  deleteTicket(id: any): Observable<any> {
+    return this.http.delete(shared.url + 'tickets/' + id)
+  }
+
+  updateTicket(ticket:any):Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type', 'application/json')
+    return this.http.put(shared.url + 'tickets/' + ticket.id, ticket, { headers: headers })
+  }
   getTypes(): Observable<any> {
     return this.http.get(shared.url + 'ticketypes')
   }

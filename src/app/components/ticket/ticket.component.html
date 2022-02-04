@@ -1,0 +1,284 @@
+<p-toast></p-toast>
+
+<div class="card">
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"
+                disabled="true"></button>
+            <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger"
+                (click)="deleteSelectedTickets()" [disabled]="!selectedTickets || !selectedTickets.length"></button>
+        </ng-template>
+
+        <!--     <ng-template pTemplate="right">
+            <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="p-mr-2 p-d-inline-block"></p-fileUpload>
+            <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+        </ng-template> -->
+    </p-toolbar>
+
+    <p-table #dt [value]="tickets" [rows]="10" [paginator]="true"
+        [globalFilterFields]="['id','location_work','employee_id','category_id','ticket_type_id','state']"
+        responsiveLayout="scroll" [(selection)]="selectedTickets" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <h5 class="p-m-0">Manage Tickets</h5>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Buscar..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon>
+                </th>
+                <th pSortableColumn="location_work">Ubicación <p-sortIcon field="location_work">
+                    </p-sortIcon>
+                <th pSortableColumn="employee_id">Solicitado por <p-sortIcon field="employee_id"></p-sortIcon>
+                <th pSortableColumn="category_id">Categoria <p-sortIcon field="category_id"></p-sortIcon>
+                </th>
+                <th pSortableColumn="ticket_type_id">Tipo de ticket <p-sortIcon field="ticket_type_id"></p-sortIcon>
+                </th>
+                <th pSortableColumn="comments_emp">Comentario empleado <p-sortIcon field="comments_emp"></p-sortIcon>
+                </th>
+                <th pSortableColumn="comments_tech">Comentario tecnico<p-sortIcon field="comments_tech"></p-sortIcon>
+                </th>
+                <th pSortableColumn="state">Estado<p-sortIcon field="state"></p-sortIcon>
+                </th>
+                <th pSortableColumn="created_at">Fecha de creacion<p-sortIcon field="created_at"></p-sortIcon>
+                </th>
+
+
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-ticket>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="ticket"></p-tableCheckbox>
+                </td>
+                <td>{{ticket.id}}</td>
+
+                <td *ngIf="!employees">
+
+                    No hay empleados disponibles
+
+                </td>
+                <td *ngIf="employees">
+                    <ng-container *ngFor="let employee of employees">
+                        <strong *ngIf="ticket.employee_id && employee.id == ticket.employee_id ; ">
+                            {{employee.first_name}}
+                        </strong>
+
+                    </ng-container>
+                </td>
+                <td *ngIf="!categories">
+
+                    No hay categorias de ticket disponibles
+
+                </td>
+                <td *ngIf="categories ">
+                    <ng-container *ngFor="let category of categories">
+                        <div *ngIf="ticket.category_id && category.id == ticket.category_id ; ">
+                            {{category.name}}
+                        </div>
+
+                    </ng-container>
+                </td>
+
+                <td *ngIf="!types">
+
+                    No hay tipos de ticket disponibles
+
+                </td>
+                <td *ngIf="types ">
+                    <span *ngFor="let type of types">
+                        <strong *ngIf="ticket.ticket_type_id && type.id == ticket.ticket_type_id ; ">
+                            {{type.name}}
+                        </strong>
+                    </span>
+                </td>
+
+                <td>{{ticket.comments_emp}}</td>
+                <td>{{ticket.comments_tech}}</td>
+                <td>{{ticket.state}}</td>
+                <td>{{ticket.created_at}}</td>
+
+
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
+                        (click)="editTicket(ticket)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                        (click)="deleteTicket(ticket)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                En total hay {{tickets ? tickets.length : 0 }} dispositivos.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="ticketDialog" [style]="{width: '450px'}" header="Dispositivos Details" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="content">
+
+        <!--   <div class="p-field">
+            <label for="id">ID</label>
+            <input type="text" pInputText id="id" [(ngModel)]="department.id"  autofocus readonly>
+            <small class="p-error" *ngIf="submitted && !department.name">id is required.</small>
+        </div> -->
+        <div class="field m-5">
+            <label for="category_id">Categoria de ticket</label>
+            <p>
+                <p-dropdown [(ngModel)]="ticket.category_id" inputId="category_id" [options]="categories"
+                    placeholder="Selecciona" optionValue="id" [style]="{position: 'absolute'}">
+                    <ng-template let-category pTemplate="selectedItem">
+                        <div *ngIf="ticket.category_id">
+                            <div *ngIf="ticket.category_id== category.id">{{category.name}}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template let-category pTemplate="item">
+                        <div>{{category.name}}</div>
+                    </ng-template>
+                </p-dropdown>
+            </p>
+
+        </div>
+
+        <div class="field m-5">
+            <label for="ticket_type_id">Tipo de ticket</label>
+
+            <p-dropdown [(ngModel)]="ticket.ticket_type_id" inputId="ticket_type_id" [options]="types" placeholder="Selecciona"
+                optionValue="id" [style]="{position: 'absolute'}">
+                <ng-template let-type pTemplate="selectedItem">
+                    <div *ngIf="ticket.ticket_type_id">
+                        <div *ngIf="ticket.ticket_type_id== type.id">{{type.name}}</div>
+                    </div>
+                </ng-template>
+                <ng-template let-type pTemplate="item">
+                    <div>{{type.name}}</div>
+                </ng-template>
+            </p-dropdown>
+
+
+        </div>
+
+        <div class="field m-5">
+            <label for="comments_emp">Comentarios de solicitante</label>
+
+            <input type="text" pInputText id="comments_emp" [(ngModel)]="ticket.comments_emp" required autofocus />
+
+
+        </div>
+        <div class="field m-5">
+            <label for="comments_tech">Comentarios de Tecnico</label>
+
+            <input type="text" pInputText id="comments_tech" [(ngModel)]="ticket.comments_tech" required autofocus />
+
+
+        </div>
+
+        <div class="field">
+            <label for="serial_number">Numero de serie</label>
+            <input type="text" pInputText id="serial_number" [(ngModel)]="ticket.serial_number" required autofocus />
+            <small class="p-error" *ngIf="submitted && !ticket.serial_number">El numero de serie es requerido.</small>
+        </div>
+        <div class="field">
+            <label for="date_purchase">Fecha de compra</label>
+            <p-calendar [(ngModel)]="ticket.date_purchase" dateFormat="dd.mm.yy" [showIcon]="true" [defaultDate]="null">
+            </p-calendar>
+            <small class="p-error" *ngIf="submitted && !ticket.date_purchase">la fecha de compra es requerida.</small>
+        </div>
+
+        <div class="field">
+            <label for="price">Precio de compra</label>
+            <p-inputNumber [(ngModel)]="ticket.price" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
+            <small class="p-error" *ngIf="submitted && !ticket.price">El precio de compra es requerida.</small>
+        </div>
+
+        <div class="field">
+            <label for="warranty">Dias de garantia</label>
+            <p-inputNumber [(ngModel)]="ticket.warranty"></p-inputNumber>
+            <small class="p-error" *ngIf="submitted && !ticket.warranty">La garantia de compra es requerida.</small>
+        </div>
+
+        <div class="field">
+            <label for="preventive_maintenance">Periodicidad de mantenimiento(en dias)</label>
+            <p-inputNumber [(ngModel)]="ticket.preventive_maintenance"></p-inputNumber>
+            <small class="p-error" *ngIf="submitted && !ticket.preventive_maintenance">El mantenimiento es
+                requerido.</small>
+        </div>
+
+
+        <div class="field">
+            <label for="specs">Especificaciones</label>
+            <input type="text" pInputText id="specs" [(ngModel)]="ticket.specs" required autofocus />
+            <small class="p-error" *ngIf="submitted && !ticket.specs">Las Especificaciones son requeridas.</small>
+        </div>
+
+        <!--  <div class="p-field">
+            <label for="created_at">Fecha de creacion</label>
+            <input mark="text" pInputText id="created_at" [(ngModel)]="department.created_at"  autofocus readonly>
+            <small class="p-error" *ngIf="submitted && !department.name">id is required.</small>
+        </div> -->
+        <!--   <div class="p-field">
+            <label for="description">Description</label>
+            <textarea id="description" pInputTextarea [(ngModel)]="department.description" required rows="3" cols="20"></textarea>
+        </div> -->
+        <!--      <div class="p-field">
+            <label for="inventoryStatus">Inventory Status</label>
+            <p-dropdown [(ngModel)]="department.inventoryStatus" inputId="inventoryStatus" [options]="statuses" placeholder="Select">
+                <ng-template let-option pTemplate="item">
+                    <span [class]="'department-badge status-' + option.value">{{option.label}}</span>
+                </ng-template>
+            </p-dropdown>
+        </div>
+
+        <div class="p-field">
+            <label class="p-mb-3">Category</label>
+            <div class="p-formgrid p-grid">
+                <div class="p-field-radiobutton p-col-6">
+                    <p-radioButton id="mark1" name="mark" value="Accessories" [(ngModel)]="department.mark"></p-radioButton>
+                    <label for="mark1">Accessories</label>
+                </div>
+                <div class="p-field-radiobutton p-col-6">
+                    <p-radioButton id="mark2" name="mark" value="Clothing" [(ngModel)]="department.mark"></p-radioButton>
+                    <label for="mark2">Clothing</label>
+                </div>
+                <div class="p-field-radiobutton p-col-6">
+                    <p-radioButton id="mark3" name="mark" value="Electronics" [(ngModel)]="department.mark"></p-radioButton>
+                    <label for="mark3">Electronics</label>
+                </div>
+                <div class="p-field-radiobutton p-col-6">
+                    <p-radioButton id="mark4" name="mark" value="Fitness" [(ngModel)]="department.mark"></p-radioButton>
+                    <label for="mark4">Fitness</label>
+                </div>
+            </div>
+        </div> -->
+
+        <!--  <div class="p-formgrid p-grid">
+            <div class="p-field p-col">
+                <label for="price">Price</label>
+                <p-inputNumber id="price" [(ngModel)]="department.price" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
+            </div>
+            <div class="p-field p-col">
+                <label for="quantity">Quantity</label>
+                <p-inputNumber id="quantity" [(ngModel)]="department.quantity"></p-inputNumber>
+            </div>
+        </div> -->
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveDevice()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
