@@ -80,4 +80,24 @@ export class DevicesService {
     let headers = new HttpHeaders().set('Content-Type', 'application/json')
     return this.http.post(shared.url + 'itequipments', device, { headers: headers })
   }
+
+
+  /* users device */
+  getUserDevice(): Observable<any> {
+    return this.http.get(shared.url + 'assignments')
+  }
+  updateUserDevice(device: any): Observable<any> {
+    /* let params= JSON.stringify(department) */
+    let headers = new HttpHeaders().set('Content-Type', 'application/json')
+    return this.http.put(shared.url + 'assignments/' + device.inventory_cod, device, { headers: headers })
+  }
+
+  deleteUserDevice(id: any): Observable<any> {
+    return this.http.delete(shared.url + 'assignments/' + id)
+  }
+  saveUserDevice(device: any): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json')
+    return this.http.post(shared.url + 'assignments', device, { headers: headers })
+  }
+  /* end user devices */
 }

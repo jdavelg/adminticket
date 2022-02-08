@@ -15,7 +15,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { MsalModule, MsalRedirectComponent, MsalGuard, MsalInterceptor } from '@azure/msal-angular'; // Import MsalInterceptor
 import { InteractionType, PublicClientApplication } from '@azure/msal-browser';
 import { UsersComponent } from './components/users/users.component';
-import { TicketsComponent } from './components/tickets/tickets.component';
+/* import { TicketsComponent } from './components/tickets/tickets.component'; */
 import { DevicesComponent } from './components/devices/devices.component';
 import { LoginComponent } from './components/login/login.component';
 
@@ -53,6 +53,7 @@ import { UserdetailComponent } from './components/userdetail/userdetail.componen
 import { DevicedetailComponent } from './components/devicedetail/devicedetail.component';
 import { TicketComponent } from './components/ticket/ticket.component';
 import { DepartmentsComponent } from './components/departments/departments.component';
+import { UserDeviceComponent } from './components/user-device/user-device.component';
 
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 
@@ -62,7 +63,6 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
     HomeComponent,
     ProfileComponent,
     UsersComponent,
-    TicketsComponent,
     DevicesComponent,
     LoginComponent,
     
@@ -75,6 +75,7 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
     EquipmentTypeComponent,
     ModelsComponent,
     TicketComponent,
+    UserDeviceComponent,
   ],
   imports: [
     BrowserModule,

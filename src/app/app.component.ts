@@ -74,7 +74,7 @@ export class AppComponent implements OnInit, OnDestroy {
           },
           {
             label: 'Tickets', icon: 'pi pi-fw pi-refresh',
-            routerLink: ['/ticket-types'],
+            routerLink: ['/tickets'],
           },
 
         ]
