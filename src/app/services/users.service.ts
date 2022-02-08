@@ -36,6 +36,11 @@ export class UsersService {
     let headers = new HttpHeaders().set('Content-Type', 'application/json')
     return this.http.post(shared.url + 'departments', department, { headers: headers })
   }
+
+  getTechnicalUsers():Observable<any>{
+    return this.http.get(shared.url + 'employees/all/TECHNICAL')
+
+  }
 }
 
 

@@ -3,6 +3,10 @@ export interface Userdevice {
     employee_id?
     inventory_cod?;
     requested_by?;
+    solicitado?;
+    recibido?;
+    empleado?;
+    entregado?;
     received_by?;
     delivery_by?;
     location?;

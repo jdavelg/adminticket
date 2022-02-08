@@ -2,18 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Userdevice } from 'src/app/interfaces/userdevice';
 import { DevicesService } from 'src/app/services/devices.service';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-user-device',
   templateUrl: './user-device.component.html',
-  styleUrls: ['./user-device.component.css']
+  styleUrls: ['./user-device.component.css'],
+  providers: [ConfirmationService, MessageService]
 })
 export class UserDeviceComponent implements OnInit {
 
   devices: Userdevice[]
   device: Userdevice
   clonedUserDevices: { [s: string]: Userdevice; } = {};
-
+  deviceCodes: any[]
   deviceDialog: boolean;
 
   today = new Date()
@@ -23,25 +25,25 @@ export class UserDeviceComponent implements OnInit {
   submitted: boolean;
 
   statuses: any[];
-  marks: any[]
-  models: any[]
+
+  users: any[]
   equipmentTypes: any[]
-  constructor(private _deviceService: DevicesService, private messageService: MessageService, private confirmationService: ConfirmationService) {
+  constructor(private _deviceService: DevicesService, private messageService: MessageService, private confirmationService: ConfirmationService, private _userService: UsersService) {
 
   }
 
   ngOnInit(): void {
 
-    this.getMarks()
-    this.getModels()
+    this.getDeviceCodes()
+    this.getUsers()
     this.getTypes()
     this.getUserDevices()
   }
 
-  getMarks() {
-    this._deviceService.getMarks().subscribe(
+  getDeviceCodes() {
+    this._deviceService.getDevices().subscribe(
       resp => {
-        this.marks = resp
+        this.deviceCodes = resp
       },
       err => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un error al conectarse al servidor' });
@@ -60,10 +62,10 @@ export class UserDeviceComponent implements OnInit {
       }
     )
   }
-  getModels() {
-    this._deviceService.getEquipmentModels().subscribe(
+  getUsers() {
+    this._userService.getUsers().subscribe(
       resp => {
-        this.models = resp
+        this.users = resp
       }, err => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un error al conectarse al servidor' });
       }
@@ -73,12 +75,36 @@ export class UserDeviceComponent implements OnInit {
   getUserDevices() {
     this._deviceService.getUserDevice().subscribe(
       resp => {
-       resp.forEach((device:any)=>{
-         device.date_purchase= new Date(device.date_purchase)
 
-        device['fecha']=new Date(device.date_purchase).toISOString().split('T')[0] 
-       })
         this.devices = resp
+        this._userService.getUsers().subscribe(
+          resp => {
+            this.users = resp
+            this.devices.forEach(device => {
+              this.users.forEach(user => {
+                if (device.employee_id == user.id) {
+                  device.empleado == user.name
+                }
+                if (device.received_by == user.id) {
+                  device.recibido == user.name
+                }
+
+                if (device.requested_by == user.id) {
+                  device.solicitado == user.name
+                }
+                if (device.delivery_by == user.id) {
+                  device.entregado == user.name
+                }
+
+              });
+            });
+          }, err => {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un error al conectarse al servidor' });
+          }
+        )
+
+
+
       },
       err => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un error al conectarse al servidor' });
@@ -162,10 +188,7 @@ export class UserDeviceComponent implements OnInit {
       if (this.device.updated_at) {
         delete this.device.updated_at
       }
-     let dateToChange= new Date(this.device.date_purchase).toISOString().split('T')[0] 
-   this.device.date_purchase= dateToChange  
-      console.log(this.device.date_purchase);
-      delete this.device.fecha
+
       this._deviceService.updateUserDevice(this.device).subscribe(
         resp => {
           this.hideDialog()
