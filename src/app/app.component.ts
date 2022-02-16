@@ -37,6 +37,10 @@ export class AppComponent implements OnInit, OnDestroy {
           icon: 'pi pi-fw pi-tags',
           routerLink: ['/users'],
         },
+        {
+          label: 'Asignaciones', icon: 'pi pi-fw pi-refresh',
+          routerLink: ['/asignaciones'],
+        }
 
         ],
 
@@ -56,6 +60,10 @@ export class AppComponent implements OnInit, OnDestroy {
           {
             label: 'Tipos de equipo', icon: 'pi pi-fw pi-refresh',
             routerLink: ['/equipment-types'],
+          },
+          {
+            label: 'Dispositivos', icon: 'pi pi-fw pi-refresh',
+            routerLink: ['/devices'],
           }
         ]
 

@@ -84,20 +84,24 @@ export class DevicesService {
 
   /* users device */
   getUserDevice(): Observable<any> {
-    return this.http.get(shared.url + 'assignments')
+    return this.http.get(shared.url + 'itequipments/assignments')
   }
   updateUserDevice(device: any): Observable<any> {
     /* let params= JSON.stringify(department) */
     let headers = new HttpHeaders().set('Content-Type', 'application/json')
-    return this.http.put(shared.url + 'assignments/' + device.inventory_cod, device, { headers: headers })
+    return this.http.put(shared.url + 'itequipments/assignments/' + device.inventory_cod, device, { headers: headers })
   }
 
   deleteUserDevice(id: any): Observable<any> {
-    return this.http.delete(shared.url + 'assignments/' + id)
+    return this.http.delete(shared.url + 'itequipments/assignments/' + id)
   }
   saveUserDevice(device: any): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json')
-    return this.http.post(shared.url + 'assignments', device, { headers: headers })
+    return this.http.post(shared.url + 'itequipments/assignments', device, { headers: headers })
   }
   /* end user devices */
+
+  getAssignRecords():Observable<any>{
+    return this.http.get(shared.url + 'itequipments/assignments')
+  }
 }

@@ -13,6 +13,7 @@ import { EquipmentTypeComponent } from './components/equipment-type/equipment-ty
 import { ModelsComponent } from './components/models/models.component';
 import { DevicesComponent } from './components/devices/devices.component';
 import { TicketComponent } from './components/ticket/ticket.component';
+import { UserDeviceComponent } from './components/user-device/user-device.component';
 
 const routes: Routes = [
 
@@ -68,6 +69,11 @@ const routes: Routes = [
   {
     path: 'tickets',
     component: TicketComponent    ,
+    /* canActivate: [MsalGuard] */
+  },
+  {
+    path: 'asignaciones',
+    component: UserDeviceComponent    ,
     /* canActivate: [MsalGuard] */
   }
 ];

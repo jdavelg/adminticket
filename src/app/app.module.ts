@@ -50,10 +50,12 @@ import { MarkComponent } from './components/mark/mark.component';
 import { EquipmentTypeComponent } from './components/equipment-type/equipment-type.component';
 import { ModelsComponent } from './components/models/models.component';
 import { UserdetailComponent } from './components/userdetail/userdetail.component';
-import { DevicedetailComponent } from './components/devicedetail/devicedetail.component';
+
 import { TicketComponent } from './components/ticket/ticket.component';
 import { DepartmentsComponent } from './components/departments/departments.component';
 import { UserDeviceComponent } from './components/user-device/user-device.component';
+
+import { AssignDeviceRecordsComponent } from './components/assign-device-records/assign-device-records.component';
 
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 
@@ -67,7 +69,6 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
     LoginComponent,
     
     UserdetailComponent,
-    DevicedetailComponent,
     DepartmentsComponent,
     TcategoryComponent,
     TtypesComponent,
@@ -76,6 +77,8 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
     ModelsComponent,
     TicketComponent,
     UserDeviceComponent,
+  
+    AssignDeviceRecordsComponent,
   ],
   imports: [
     BrowserModule,

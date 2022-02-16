@@ -11,7 +11,7 @@ import { UsersService } from 'src/app/services/users.service';
   providers: [ConfirmationService, MessageService]
 })
 export class UserDeviceComponent implements OnInit {
-
+/* este es el crud de asignaciones */
   devices: Userdevice[]
   device: Userdevice
   clonedUserDevices: { [s: string]: Userdevice; } = {};

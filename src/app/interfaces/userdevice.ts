@@ -16,4 +16,9 @@ export interface Userdevice {
     name_equipment?;
     created_at?;
     updated_at?;
+    delivery_by_desassigned?;
+    received_by_desassigned?;
+    comments_desassigned?;
+    equipment_state_desassigned?;
+
 }
