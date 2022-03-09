@@ -28,17 +28,17 @@ export class AppComponent implements OnInit, OnDestroy {
         icon: 'pi pi-fw pi-user',
         items: [{
           label: 'Departamentos',
-          icon: 'pi pi-fw pi-plus',
+          icon: 'pi pi-fw pi-clone',
           routerLink: ['/departments'],
 
         },
         {
           label: 'Usuarios gestion',
-          icon: 'pi pi-fw pi-tags',
+          icon: 'pi pi-fw pi-users',
           routerLink: ['/users'],
         },
         {
-          label: 'Asignaciones', icon: 'pi pi-fw pi-refresh',
+          label: 'Asignaciones', icon: 'pi pi-fw pi-desktop',
           routerLink: ['/asignaciones'],
         }
 
@@ -50,19 +50,19 @@ export class AppComponent implements OnInit, OnDestroy {
         icon: 'pi pi-fw pi-print',
         items: [
           {
-            label: 'Modelos', icon: 'pi pi-fw pi-trash',
+            label: 'Modelos', icon: 'pi pi-fw pi-th-large',
             routerLink: ['/equipment-models'],
           },
           {
-            label: 'Marcas', icon: 'pi pi-fw pi-refresh',
+            label: 'Marcas', icon: 'pi pi-fw pi-apple',
             routerLink: ['/brands'],
           },
           {
-            label: 'Tipos de equipo', icon: 'pi pi-fw pi-refresh',
+            label: 'Tipos de equipo', icon: 'pi pi-fw pi-tags',
             routerLink: ['/equipment-types'],
           },
           {
-            label: 'Dispositivos', icon: 'pi pi-fw pi-refresh',
+            label: 'Dispositivos', icon: 'pi pi-fw pi-desktop',
             routerLink: ['/devices'],
           }
         ]
@@ -73,15 +73,15 @@ export class AppComponent implements OnInit, OnDestroy {
         icon: 'pi pi-fw pi-ticket',
         items: [
           {
-            label: 'Categorias', icon: 'pi pi-fw pi-refresh',
+            label: 'Categorias', icon: 'pi pi-fw pi-tags',
             routerLink: ['/ticket-categories'],
           },
           {
-            label: 'Tipos', icon: 'pi pi-fw pi-refresh',
+            label: 'Tipos', icon: 'pi pi-fw pi-bookmark',
             routerLink: ['/ticket-types'],
           },
           {
-            label: 'Tickets', icon: 'pi pi-fw pi-refresh',
+            label: 'Tickets', icon: 'pi pi-fw pi-ticket',
             routerLink: ['/tickets'],
           },
 

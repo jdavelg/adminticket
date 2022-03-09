@@ -91,8 +91,8 @@
         </div> -->
         <div class="field m-5">
             <label for="mark_id">Marca</label>
-            <p>
-                <p-dropdown [(ngModel)]="model.mark_id" inputId="mark_id" [options]="marks" placeholder="Selecciona" optionValue="id" [style]="{position: 'fixed'}">
+          
+                <p-dropdown [(ngModel)]="model.mark_id" inputId="mark_id" [options]="marks" [filter]="true" filterBy="name" [showClear]="true"  placeholder="Selecciona la Marca" optionValue="id" [style]="{position: 'fixed'}">
                     <ng-template let-mark pTemplate="selectedItem">
                         <div  *ngIf="model.mark_id">                            
                             <div *ngIf="model.mark_id== mark.id">{{mark.name}}</div>
@@ -102,7 +102,7 @@
                     <div >{{mark.name}}</div>
                 </ng-template>
             </p-dropdown> 
-            </p>
+       
            
         </div>
 

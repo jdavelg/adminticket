@@ -136,9 +136,9 @@
         </div> -->
         <div class="field m-5">
             <label for="category_id">Categoria de ticket</label>
-            <p>
+          
                 <p-dropdown [(ngModel)]="ticket.category_id" inputId="category_id" [options]="categories"
-                    placeholder="Selecciona" optionValue="id" [style]="{position: 'absolute'}">
+                    placeholder="Selecciona la categoria de ticket" optionValue="id" [style]="{position: 'absolute'}">
                     <ng-template let-category pTemplate="selectedItem">
                         <div *ngIf="ticket.category_id">
                             <div *ngIf="ticket.category_id== category.id">{{category.name}}</div>
@@ -148,7 +148,7 @@
                         <div>{{category.name}}</div>
                     </ng-template>
                 </p-dropdown>
-            </p>
+       
 
         </div>
 

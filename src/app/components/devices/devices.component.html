@@ -145,27 +145,29 @@
         </div> -->
         <div class="field m-5">
             <label for="mark_id">Marca</label>
-            <p>
-                <p-dropdown [(ngModel)]="device.mark_id" inputId="mark_id" [options]="marks" placeholder="Selecciona"
-                    optionValue="id" [style]="{position: 'absolute'}">
-                    <ng-template let-mark pTemplate="selectedItem">
-                        <div *ngIf="device.mark_id">
-                            <div *ngIf="device.mark_id== mark.id">{{mark.name}}</div>
-                        </div>
-                    </ng-template>
-                    <ng-template let-mark pTemplate="item">
-                        <div>{{mark.name}}</div>
-                    </ng-template>
-                </p-dropdown>
-            </p>
+
+            <p-dropdown [(ngModel)]="device.mark_id" inputId="mark_id" [filter]="true" filterBy="name"
+                [showClear]="true" [options]="marks" placeholder="Selecciona una marca" optionValue="id"
+                [style]="{position: 'absolute'}">
+                <ng-template let-mark pTemplate="selectedItem">
+                    <div *ngIf="device.mark_id">
+                        <div *ngIf="device.mark_id== mark.id">{{mark.name}}</div>
+                    </div>
+                </ng-template>
+                <ng-template let-mark pTemplate="item">
+                    <div>{{mark.name}}</div>
+                </ng-template>
+            </p-dropdown>
+
 
         </div>
 
         <div class="field m-5">
             <label for="model_id">Modelo</label>
 
-            <p-dropdown [(ngModel)]="device.model_id" inputId="model_id" [options]="models" placeholder="Selecciona"
-                optionValue="id" [style]="{position: 'absolute'}">
+            <p-dropdown [(ngModel)]="device.model_id" inputId="model_id" [filter]="true" filterBy="name"
+                [showClear]="true" [options]="models" placeholder="Selecciona" optionValue="id"
+                [style]="{position: 'absolute'}">
                 <ng-template let-model pTemplate="selectedItem">
                     <div *ngIf="device.model_id">
                         <div *ngIf="device.model_id== model.id">{{model.name}}</div>
@@ -183,7 +185,8 @@
             <label for="equipment_types_id">Tipo de equipo</label>
 
             <p-dropdown [(ngModel)]="device.equipment_types_id" inputId="equipment_types_id" [options]="equipmentTypes"
-                placeholder="Selecciona" optionValue="id" [style]="{position: 'absolute'}">
+                [filter]="true" filterBy="name" [showClear]="true" placeholder="Selecciona" optionValue="id"
+                [style]="{position: 'absolute'}">
                 <ng-template let-type pTemplate="selectedItem">
                     <div *ngIf="device.equipment_types_id">
                         <div *ngIf="device.equipment_types_id== type.id">{{type.name}}</div>
@@ -204,7 +207,7 @@
         </div>
         <div class="field">
             <label for="date_purchase">Fecha de compra</label>
-            <p-calendar [(ngModel)]="device.date_purchase" dateFormat="dd.mm.yy" [showIcon]="true" [defaultDate]="null" >
+            <p-calendar [(ngModel)]="device.date_purchase" dateFormat="dd.mm.yy" [showIcon]="true" [defaultDate]="null">
             </p-calendar>
             <small class="p-error" *ngIf="submitted && !device.date_purchase">la fecha de compra es requerida.</small>
         </div>

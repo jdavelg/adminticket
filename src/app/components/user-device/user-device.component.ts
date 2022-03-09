@@ -44,6 +44,9 @@ export class UserDeviceComponent implements OnInit {
     this._deviceService.getDevices().subscribe(
       resp => {
         this.deviceCodes = resp
+
+/*         console.log(this.deviceCodes); */
+        
       },
       err => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un error al conectarse al servidor' });
@@ -66,6 +69,8 @@ export class UserDeviceComponent implements OnInit {
     this._userService.getUsers().subscribe(
       resp => {
         this.users = resp
+   /*      console.log(this.users); */
+        
       }, err => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un error al conectarse al servidor' });
       }
