@@ -24,7 +24,7 @@ const routes: Routes = [
   {
     path: 'profile',
     component: HomeComponent,
-   /*  canActivate: [MsalGuard] */
+    /*  canActivate: [MsalGuard] */
   },
   {
     path: 'users',
@@ -53,27 +53,27 @@ const routes: Routes = [
   },
   {
     path: 'equipment-types',
-    component: EquipmentTypeComponent    ,
+    component: EquipmentTypeComponent,
     /* canActivate: [MsalGuard] */
   },
   {
-    path: 'equipment-models',
-    component: ModelsComponent    ,
+    path: 'equipment-models',   
+    component: ModelsComponent,
     /* canActivate: [MsalGuard] */
   },
   {
     path: 'devices',
-    component: DevicesComponent    ,
+    component: DevicesComponent,
     /* canActivate: [MsalGuard] */
   },
   {
     path: 'tickets',
-    component: TicketComponent    ,
+    component: TicketComponent,
     /* canActivate: [MsalGuard] */
   },
   {
     path: 'asignaciones',
-    component: UserDeviceComponent    ,
+    component: UserDeviceComponent,
     /* canActivate: [MsalGuard] */
   }
 ];
