@@ -38,8 +38,17 @@
                     <td>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
-                                <p-dropdown [options]="departments" [(ngModel)]="user.department_id"
-                                    [style]="{'width':'100%'}" optionValue="id"></p-dropdown>
+                                <p-dropdown [options]="departments" [filter]="true" filterBy="name" [(ngModel)]="user.department_id"
+                                    [style]="{'width':'100%'}" optionValue="id">
+                                    <ng-template let-department pTemplate="selectedItem">
+                                        <div *ngIf="user.department_id">
+                                            <div *ngIf="user.department_id== department.id">{{department.name}}</div>
+                                        </div>
+                                    </ng-template>
+                                    <ng-template let-department pTemplate="item">
+                                        <div>{{department.name}}</div>
+                                    </ng-template>
+                                </p-dropdown>
                             </ng-template>
                             <ng-template pTemplate="output">
                                 <span *ngFor="let department of departments">

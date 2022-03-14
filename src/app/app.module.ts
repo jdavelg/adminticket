@@ -18,7 +18,7 @@ import { UsersComponent } from './components/users/users.component';
 /* import { TicketsComponent } from './components/tickets/tickets.component'; */
 import { DevicesComponent } from './components/devices/devices.component';
 import { LoginComponent } from './components/login/login.component';
-
+import { MenuModule } from 'primeng/menu'; // add this import
 
 import {TableModule} from 'primeng/table';
 import {CalendarModule} from 'primeng/calendar';
@@ -42,7 +42,7 @@ import {ToolbarModule} from 'primeng/toolbar';
 import {ConfirmationService} from 'primeng/api';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {CardModule} from 'primeng/card';
-import {MenubarModule} from 'primeng/menubar';
+import {Menubar, MenubarModule} from 'primeng/menubar';
 import {MenuItem} from 'primeng/api';
 import { TcategoryComponent } from './components/tcategory/tcategory.component';
 import { TtypesComponent } from './components/ttypes/ttypes.component';
@@ -83,7 +83,7 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-
+    MenuModule,
     FormsModule,
     DynamicDialogModule,
     AppRoutingModule,

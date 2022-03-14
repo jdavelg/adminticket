@@ -123,6 +123,7 @@ export class MarkComponent implements OnInit {
       this._deviceService.updateMark(this.mark).subscribe(
         resp => {
           this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Registro guardado', life: 3000 });
+          this.hideDialog()
           this.getMarks()
         },
         err => {
@@ -134,13 +135,14 @@ export class MarkComponent implements OnInit {
         resp => {
           this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Registro guardado', life: 3000 });
           this.getMarks()
+          this.hideDialog()
         },
         err => {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error en el servidor al guardar el registro', life: 3000 });
         }
       )
     }
-    
+
     /*    if (this.type.name) {
            if (this.product.id) {
                this.products[this.findIndexById(this.product.id)] = this.product;

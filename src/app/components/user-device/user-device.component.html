@@ -137,13 +137,13 @@
         </div> -->
         <div class="field m-5">
             <label for="employee_id">
-                <p-dropdown [options]="users" [(ngModel)]="device.employee_id" optionValue="id" optionLabel="name"
+                <p-dropdown [options]="users" [(ngModel)]="device.employee_id" optionValue="id" optionLabel="email"
                     [filter]="true" filterBy="email" [showClear]="true" placeholder="Selecciona un empleado">
-                    <ng-template pTemplate="selectedItem">
+                    <ng-template let-user pTemplate="selectedItem">
                         <div class="country-item country-item-value" *ngIf="device.employee_id">
-                            <ng-template let-user>
-                                <div *ngIf="user.id==device.employee_id">{{user.email}}</div>
-                            </ng-template>
+
+                            <div *ngIf="user.id==device.employee_id">{{user.email}}</div>
+
                         </div>
                     </ng-template>
                     <ng-template let-user pTemplate="item">
@@ -153,6 +153,7 @@
                         </div>
                     </ng-template>
                 </p-dropdown>
+               
             </label>
         </div>
 
@@ -162,12 +163,11 @@
                 <p-dropdown [options]="deviceCodes" [(ngModel)]="device.inventory_cod" optionValue="inventory_cod"
                     optionLabel="inventory_cod" [filter]="true" filterBy="inventory_cod" [showClear]="true"
                     placeholder="Selecciona el codigo de equipo">
-                    <ng-template pTemplate="selectedItem">
+                    <ng-template let-devicecode pTemplate="selectedItem">
                         <div class="country-item country-item-value" *ngIf="device.inventory_cod">
-                            <ng-template let-devicecode>
-                                <div *ngIf="devicecode.inventory_cod==device.inventory_cod">{{devicecode.inventory_cod}}
-                                </div>
-                            </ng-template>
+                            <div *ngIf="devicecode.inventory_cod==device.inventory_cod">
+                                {{devicecode.inventory_cod}}
+                            </div>
                         </div>
                     </ng-template>
                     <ng-template let-devicecode pTemplate="item">
@@ -177,19 +177,20 @@
                         </div>
                     </ng-template>
                 </p-dropdown>
+
             </label>
         </div>
 
 
         <div class="field m-5">
             <label for="requested_by">Solicitado por</label>
-            <p-dropdown [options]="users" [(ngModel)]="device.requested_by" optionValue="id" optionLabel="name"
+            <p-dropdown [options]="users" [(ngModel)]="device.requested_by" optionValue="id" optionLabel="email"
                 [filter]="true" filterBy="email" [showClear]="true" placeholder="Selecciona quien lo solicito">
-                <ng-template pTemplate="selectedItem">
+                <ng-template let-user pTemplate="selectedItem">
                     <div class="country-item country-item-value" *ngIf="device.requested_by">
-                        <ng-template let-user>
-                            <div *ngIf="user.id==device.requested_by">{{user.name}}</div>
-                        </ng-template>
+                    
+                            <div *ngIf="user.id==device.requested_by">{{user.email}}</div>
+                     
                     </div>
                 </ng-template>
                 <ng-template let-user pTemplate="item">
@@ -204,13 +205,13 @@
 
         <div class="field m-5">
             <label for="received_by"> Recibido por</label>
-            <p-dropdown [options]="users" [(ngModel)]="device.received_by" optionValue="id" optionLabel="name"
+            <p-dropdown [options]="users" [(ngModel)]="device.received_by" optionValue="id" optionLabel="email"
                 [filter]="true" filterBy="email" [showClear]="true" placeholder="Selecciona quien lo recibio">
-                <ng-template pTemplate="selectedItem">
+                <ng-template let-user pTemplate="selectedItem">
                     <div class="country-item country-item-value" *ngIf="device.received_by">
-                        <ng-template let-user>
-                            <div *ngIf="user.id==device.received_by">{{user.name}}</div>
-                        </ng-template>
+                    
+                            <div *ngIf="user.id==device.received_by">{{user.email}}</div>
+                    
                     </div>
                 </ng-template>
                 <ng-template let-user pTemplate="item">
@@ -219,19 +220,20 @@
                         <div>{{user.email}}</div>
                     </div>
                 </ng-template>
+               
             </p-dropdown>
 
         </div>
 
         <div class="field m-5">
             <label for="delivery_by"> entregado por</label>
-            <p-dropdown [options]="users" [(ngModel)]="device.delivery_by" optionValue="id" optionLabel="name"
+            <p-dropdown [options]="users" [(ngModel)]="device.delivery_by" optionValue="id" optionLabel="email"
                 [filter]="true" filterBy="email" [showClear]="true" placeholder="Selecciona quien lo entrego">
-                <ng-template pTemplate="selectedItem">
+                <ng-template let-user pTemplate="selectedItem">
                     <div class="country-item country-item-value" *ngIf="device.delivery_by">
-                        <ng-template let-user>
-                            <div *ngIf="user.id==device.delivery_by">{{user.name}}</div>
-                        </ng-template>
+                     
+                            <div *ngIf="user.id==device.delivery_by">{{user.email}}</div>
+                       
                     </div>
                 </ng-template>
                 <ng-template let-user pTemplate="item">
@@ -241,6 +243,14 @@
                     </div>
                 </ng-template>
             </p-dropdown>
+              <!--     <ng-template let-mark pTemplate="selectedItem">
+                    <div *ngIf="device.mark_id">
+                        <div *ngIf="device.mark_id== mark.id">{{mark.name}}</div>
+                    </div>
+                </ng-template>
+                <ng-template let-mark pTemplate="item">
+                    <div>{{mark.name}}</div>
+                </ng-template> -->
 
         </div>
 
