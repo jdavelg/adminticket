@@ -57,6 +57,7 @@ import { UserDeviceComponent } from './components/user-device/user-device.compon
 
 import { AssignDeviceRecordsComponent } from './components/assign-device-records/assign-device-records.component';
 
+
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 
 @NgModule({
@@ -79,6 +80,7 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
     UserDeviceComponent,
 
     AssignDeviceRecordsComponent,
+    
   ],
   imports: [
     BrowserModule,

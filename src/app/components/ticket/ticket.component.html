@@ -3,8 +3,8 @@
 <div class="card">
     <p-toolbar styleClass="p-mb-4">
         <ng-template pTemplate="left">
-            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"
-                disabled="true"></button>
+            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2"
+                (click)="openNew()"></button>
             <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger"
                 (click)="deleteSelectedTickets()" [disabled]="!selectedTickets || !selectedTickets.length"></button>
         </ng-template>
@@ -134,31 +134,56 @@
             <input type="text" pInputText id="id" [(ngModel)]="department.id"  autofocus readonly>
             <small class="p-error" *ngIf="submitted && !department.name">id is required.</small>
         </div> -->
+
+        <div class="field m-5">
+            <label for="received_by"> Solicitado por</label>
+            <p-dropdown [options]="users" [(ngModel)]="ticket.employee_id" optionValue="id" optionLabel="email"
+                [filter]="true" filterBy="email" [showClear]="true" placeholder="Selecciona quien lo solicita">
+                <ng-template let-user pTemplate="selectedItem">
+                    <div class="country-item country-item-value" *ngIf="ticket.employee_id">
+
+                        <div *ngIf="user.id==ticket.employee_id">{{user.email}}</div>
+
+                    </div>
+                </ng-template>
+                <ng-template let-user pTemplate="item">
+                    <div class="country-item">
+
+                        <div>{{user.email}}</div>
+                    </div>
+                </ng-template>
+
+            </p-dropdown>
+
+        </div>
         <div class="field m-5">
             <label for="category_id">Categoria de ticket</label>
-          
-                <p-dropdown [(ngModel)]="ticket.category_id" inputId="category_id" [options]="categories"
-                    placeholder="Selecciona la categoria de ticket" optionValue="id" [style]="{position: 'absolute'}">
-                    <ng-template let-category pTemplate="selectedItem">
-                        <div *ngIf="ticket.category_id">
-                            <div *ngIf="ticket.category_id== category.id">{{category.name}}</div>
-                        </div>
-                    </ng-template>
-                    <ng-template let-category pTemplate="item">
-                        <div>{{category.name}}</div>
-                    </ng-template>
-                </p-dropdown>
-       
+
+            <p-dropdown [(ngModel)]="ticket.category_id" inputId="category_id" [options]="categories" optionLabel="name"
+                placeholder="Selecciona la categoria de ticket" optionValue="id" [style]="{position: 'absolute'}" [showClear]="true">
+                <ng-template let-category pTemplate="selectedItem" >
+                    <div *ngIf="ticket.category_id" class="country-item country-item-value">
+                        <div *ngIf="ticket.category_id== category.id">{{category.name}}</div>
+                    </div>
+                </ng-template>
+                <ng-template let-category pTemplate="item">
+                    <div class="country-item">
+                        <div>
+                            {{category.name}}
+                        </div></div>
+                </ng-template>
+            </p-dropdown>
+
 
         </div>
 
         <div class="field m-5">
             <label for="ticket_type_id">Tipo de ticket</label>
 
-            <p-dropdown [(ngModel)]="ticket.ticket_type_id" inputId="ticket_type_id" [options]="types" placeholder="Selecciona"
-                optionValue="id" [style]="{position: 'absolute'}">
+            <p-dropdown [(ngModel)]="ticket.ticket_type_id" inputId="ticket_type_id" [options]="types"
+                placeholder="Selecciona el tipo de ticket" optionValue="id" [style]="{position: 'absolute'}" [showClear]="true">
                 <ng-template let-type pTemplate="selectedItem">
-                    <div *ngIf="ticket.ticket_type_id">
+                    <div *ngIf="ticket.ticket_type_id" class="country-item country-item-value">
                         <div *ngIf="ticket.ticket_type_id== type.id">{{type.name}}</div>
                     </div>
                 </ng-template>
@@ -185,7 +210,7 @@
 
         </div>
 
-        <div class="field">
+        <!--        <div class="field">
             <label for="serial_number">Numero de serie</label>
             <input type="text" pInputText id="serial_number" [(ngModel)]="ticket.serial_number" required autofocus />
             <small class="p-error" *ngIf="submitted && !ticket.serial_number">El numero de serie es requerido.</small>
@@ -214,14 +239,14 @@
             <p-inputNumber [(ngModel)]="ticket.preventive_maintenance"></p-inputNumber>
             <small class="p-error" *ngIf="submitted && !ticket.preventive_maintenance">El mantenimiento es
                 requerido.</small>
-        </div>
+        </div> -->
 
 
-        <div class="field">
-            <label for="specs">Especificaciones</label>
+        <!-- <div class="field">
+            <label for="specs">Estado</label>
             <input type="text" pInputText id="specs" [(ngModel)]="ticket.specs" required autofocus />
             <small class="p-error" *ngIf="submitted && !ticket.specs">Las Especificaciones son requeridas.</small>
-        </div>
+        </div> -->
 
         <!--  <div class="p-field">
             <label for="created_at">Fecha de creacion</label>
