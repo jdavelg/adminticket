@@ -11,7 +11,7 @@ import { UsersService } from 'src/app/services/users.service';
   providers: [ConfirmationService, MessageService]
 })
 export class UserDeviceComponent implements OnInit {
-/* este es el crud de asignaciones */
+  /* este es el crud de asignaciones */
   devices: Userdevice[]
   device: Userdevice
   clonedUserDevices: { [s: string]: Userdevice; } = {};
@@ -45,8 +45,8 @@ export class UserDeviceComponent implements OnInit {
       resp => {
         this.deviceCodes = resp
 
-/*         console.log(this.deviceCodes); */
-        
+        /*         console.log(this.deviceCodes); */
+
       },
       err => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un error al conectarse al servidor' });
@@ -69,8 +69,8 @@ export class UserDeviceComponent implements OnInit {
     this._userService.getUsers().subscribe(
       resp => {
         this.users = resp
-   /*      console.log(this.users); */
-        
+        /*      console.log(this.users); */
+
       }, err => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un error al conectarse al servidor' });
       }
@@ -183,7 +183,7 @@ export class UserDeviceComponent implements OnInit {
 
   saveUserDevice() {
     this.submitted = true;
-    console.log(this.device);
+    console.log('device', this.device);
 
     if (this.device.inventory_cod !== undefined && this.device.inventory_cod
       != null) {

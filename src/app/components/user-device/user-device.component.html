@@ -126,7 +126,7 @@
     </p-table>
 </div>
 
-<p-dialog [(visible)]="deviceDialog" [style]="{width: '450px'}" header="Detalle de asignacion" [modal]="true"
+<p-dialog [(visible)]="deviceDialog" [style]="{minWidth: '450px'}" header="Detalle de asignacion" [modal]="true"
     styleClass="p-fluid">
     <ng-template pTemplate="content">
 
@@ -136,7 +136,7 @@
             <small class="p-error" *ngIf="submitted && !department.name">id is required.</small>
         </div> -->
         <div class="field m-5">
-            <label for="employee_id">
+            <label for="employee_id" class="mb-3">
                 <p-dropdown [options]="users" [(ngModel)]="device.employee_id" optionValue="id" optionLabel="email"
                     [filter]="true" filterBy="email" [showClear]="true" placeholder="Selecciona un empleado">
                     <ng-template let-user pTemplate="selectedItem">
@@ -153,13 +153,13 @@
                         </div>
                     </ng-template>
                 </p-dropdown>
-               
+
             </label>
         </div>
 
 
         <div class="field m-5">
-            <label for="inventory_cod">
+            <label for="inventory_cod" class="mb-3">
                 <p-dropdown [options]="deviceCodes" [(ngModel)]="device.inventory_cod" optionValue="inventory_cod"
                     optionLabel="inventory_cod" [filter]="true" filterBy="inventory_cod" [showClear]="true"
                     placeholder="Selecciona el codigo de equipo">
@@ -183,14 +183,14 @@
 
 
         <div class="field m-5">
-            <label for="requested_by">Solicitado por</label>
+            <label for="requested_by" class="mb-3">Solicitado por</label>
             <p-dropdown [options]="users" [(ngModel)]="device.requested_by" optionValue="id" optionLabel="email"
                 [filter]="true" filterBy="email" [showClear]="true" placeholder="Selecciona quien lo solicito">
                 <ng-template let-user pTemplate="selectedItem">
                     <div class="country-item country-item-value" *ngIf="device.requested_by">
-                    
-                            <div *ngIf="user.id==device.requested_by">{{user.email}}</div>
-                     
+
+                        <div *ngIf="user.id==device.requested_by">{{user.email}}</div>
+
                     </div>
                 </ng-template>
                 <ng-template let-user pTemplate="item">
@@ -209,9 +209,9 @@
                 [filter]="true" filterBy="email" [showClear]="true" placeholder="Selecciona quien lo recibio">
                 <ng-template let-user pTemplate="selectedItem">
                     <div class="country-item country-item-value" *ngIf="device.received_by">
-                    
-                            <div *ngIf="user.id==device.received_by">{{user.email}}</div>
-                    
+
+                        <div *ngIf="user.id==device.received_by">{{user.email}}</div>
+
                     </div>
                 </ng-template>
                 <ng-template let-user pTemplate="item">
@@ -220,7 +220,7 @@
                         <div>{{user.email}}</div>
                     </div>
                 </ng-template>
-               
+
             </p-dropdown>
 
         </div>
@@ -231,9 +231,9 @@
                 [filter]="true" filterBy="email" [showClear]="true" placeholder="Selecciona quien lo entrego">
                 <ng-template let-user pTemplate="selectedItem">
                     <div class="country-item country-item-value" *ngIf="device.delivery_by">
-                     
-                            <div *ngIf="user.id==device.delivery_by">{{user.email}}</div>
-                       
+
+                        <div *ngIf="user.id==device.delivery_by">{{user.email}}</div>
+
                     </div>
                 </ng-template>
                 <ng-template let-user pTemplate="item">
@@ -243,7 +243,7 @@
                     </div>
                 </ng-template>
             </p-dropdown>
-              <!--     <ng-template let-mark pTemplate="selectedItem">
+            <!--     <ng-template let-mark pTemplate="selectedItem">
                     <div *ngIf="device.mark_id">
                         <div *ngIf="device.mark_id== mark.id">{{mark.name}}</div>
                     </div>

@@ -80,11 +80,11 @@ export class DevicesComponent implements OnInit {
   getDevices() {
     this._deviceService.getDevices().subscribe(
       resp => {
-       resp.forEach((device:any)=>{
-         device.date_purchase= new Date(device.date_purchase)
+        resp.forEach((device: any) => {
+          device.date_purchase = new Date(device.date_purchase)
 
-        device['fecha']=new Date(device.date_purchase).toISOString().split('T')[0] 
-       })
+          device['fecha'] = new Date(device.date_purchase).toISOString().split('T')[0]
+        })
         this.devices = resp
       },
       err => {
@@ -161,16 +161,17 @@ export class DevicesComponent implements OnInit {
     this.submitted = true;
     console.log(this.device);
 
-    if (this.device.inventory_cod !== undefined && this.device.inventory_cod
-      != null) {
+    if (this.device.inventory_cod !== undefined && this.device.inventory_cod!= null) {
       if (this.device.created_at) {
         delete this.device.created_at
       }
       if (this.device.updated_at) {
         delete this.device.updated_at
       }
-     let dateToChange= new Date(this.device.date_purchase).toISOString().split('T')[0] 
-   this.device.date_purchase= dateToChange  
+      console.log('date purchased',this.device.date_purchase);
+      
+      let dateToChange = new Date(this.device.date_purchase).toISOString().split('T')[0]
+      this.device.date_purchase = dateToChange
       console.log(this.device.date_purchase);
       delete this.device.fecha
       this._deviceService.updateDevice(this.device).subscribe(

@@ -144,7 +144,7 @@
             <small class="p-error" *ngIf="submitted && !department.name">id is required.</small>
         </div> -->
         <div class="field m-5">
-            <label for="mark_id">Marca</label>
+            <label for="mark_id" class="mt-3">Marca</label>
 
             <p-dropdown [(ngModel)]="device.mark_id" inputId="mark_id" [filter]="true" filterBy="name"
                 [showClear]="true" [options]="marks" placeholder="Selecciona una marca" optionValue="id"
@@ -163,10 +163,10 @@
         </div>
 
         <div class="field m-5">
-            <label for="model_id">Modelo</label>
+            <label for="model_id" class="mt-3">Modelo</label>
 
             <p-dropdown [(ngModel)]="device.model_id" inputId="model_id" [filter]="true" filterBy="name"
-                [showClear]="true" [options]="models" placeholder="Selecciona" optionValue="id"
+                [showClear]="true" [options]="models" placeholder="Selecciona el modelo" optionValue="id"
                 [style]="{position: 'absolute'}">
                 <ng-template let-model pTemplate="selectedItem">
                     <div *ngIf="device.model_id">
@@ -182,10 +182,10 @@
         </div>
 
         <div class="field m-5">
-            <label for="equipment_types_id">Tipo de equipo</label>
+            <label for="equipment_types_id" class="mt-3">Tipo de equipo</label>
 
             <p-dropdown [(ngModel)]="device.equipment_types_id" inputId="equipment_types_id" [options]="equipmentTypes"
-                [filter]="true" filterBy="name" [showClear]="true" placeholder="Selecciona" optionValue="id"
+                [filter]="true" filterBy="name" [showClear]="true" placeholder="Selecciona el tipo de equipo" optionValue="id"
                 [style]="{position: 'absolute'}">
                 <ng-template let-type pTemplate="selectedItem">
                     <div *ngIf="device.equipment_types_id">
@@ -201,7 +201,7 @@
         </div>
 
         <div class="field">
-            <label for="serial_number">Numero de serie</label>
+            <label for="serial_number" class="mt-3">Numero de serie</label>
             <input type="text" pInputText id="serial_number" [(ngModel)]="device.serial_number" required autofocus />
             <small class="p-error" *ngIf="submitted && !device.serial_number">El numero de serie es requerido.</small>
         </div>

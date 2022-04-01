@@ -136,7 +136,7 @@
         </div> -->
 
         <div class="field m-5">
-            <label for="received_by"> Solicitado por</label>
+            <label for="received_by" class="mb-3"> Solicitado por</label>
             <p-dropdown [options]="users" [(ngModel)]="ticket.employee_id" optionValue="id" optionLabel="email"
                 [filter]="true" filterBy="email" [showClear]="true" placeholder="Selecciona quien lo solicita">
                 <ng-template let-user pTemplate="selectedItem">
@@ -157,11 +157,12 @@
 
         </div>
         <div class="field m-5">
-            <label for="category_id">Categoria de ticket</label>
+            <label for="category_id" class="mb-3">Categoria de ticket</label>
 
             <p-dropdown [(ngModel)]="ticket.category_id" inputId="category_id" [options]="categories" optionLabel="name"
-                placeholder="Selecciona la categoria de ticket" optionValue="id" [style]="{position: 'absolute'}" [showClear]="true">
-                <ng-template let-category pTemplate="selectedItem" >
+                placeholder="Selecciona la categoria de ticket" optionValue="id" [style]="{position: 'absolute'}"
+                [showClear]="true">
+                <ng-template let-category pTemplate="selectedItem">
                     <div *ngIf="ticket.category_id" class="country-item country-item-value">
                         <div *ngIf="ticket.category_id== category.id">{{category.name}}</div>
                     </div>
@@ -170,18 +171,20 @@
                     <div class="country-item">
                         <div>
                             {{category.name}}
-                        </div></div>
+                        </div>
+                    </div>
                 </ng-template>
             </p-dropdown>
 
 
         </div>
 
-        <div class="field m-5">
-            <label for="ticket_type_id">Tipo de ticket</label>
+        <div class="field m-5 ">
+            <label for="ticket_type_id" class="mb-3 mt-3">Tipo de ticket</label>
 
             <p-dropdown [(ngModel)]="ticket.ticket_type_id" inputId="ticket_type_id" [options]="types"
-                placeholder="Selecciona el tipo de ticket" optionValue="id" [style]="{position: 'absolute'}" [showClear]="true">
+                placeholder="Selecciona el tipo de ticket" optionValue="id" [style]="{position: 'absolute'}"
+                [showClear]="true">
                 <ng-template let-type pTemplate="selectedItem">
                     <div *ngIf="ticket.ticket_type_id" class="country-item country-item-value">
                         <div *ngIf="ticket.ticket_type_id== type.id">{{type.name}}</div>
@@ -196,7 +199,7 @@
         </div>
 
         <div class="field m-5">
-            <label for="comments_emp">Comentarios de solicitante</label>
+            <label for="comments_emp" class="mb-3 mt-3">Comentarios de solicitante</label>
 
             <input type="text" pInputText id="comments_emp" [(ngModel)]="ticket.comments_emp" required autofocus />
 
