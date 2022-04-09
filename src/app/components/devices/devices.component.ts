@@ -172,7 +172,7 @@ export class DevicesComponent implements OnInit {
       
       let dateToChange = new Date(this.device.date_purchase).toISOString().split('T')[0]
       this.device.date_purchase = dateToChange
-      console.log(this.device.date_purchase);
+      console.log('fecha cambiada',this.device.date_purchase);
       delete this.device.fecha
       this._deviceService.updateDevice(this.device).subscribe(
         resp => {

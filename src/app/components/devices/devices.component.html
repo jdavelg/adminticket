@@ -135,9 +135,9 @@
 </div>
 
 <p-dialog [(visible)]="deviceDialog" [style]="{width: '450px'}" header="Dispositivos Details" [modal]="true"
-    styleClass="p-fluid">
+    styleClass="p-fluid"  [style]="{width: '80%', height: '100%'}">
     <ng-template pTemplate="content">
-
+      
         <!--   <div class="p-field">
             <label for="id">ID</label>
             <input type="text" pInputText id="id" [(ngModel)]="department.id"  autofocus readonly>
@@ -288,6 +288,7 @@
                 <p-inputNumber id="quantity" [(ngModel)]="department.quantity"></p-inputNumber>
             </div>
         </div> -->
+   
     </ng-template>
 
     <ng-template pTemplate="footer">
