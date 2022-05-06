@@ -1,0 +1,8 @@
+ p-dialog .ui-dialog {
+    overflow: scroll;
+ 
+  } 
+  .p-dialog-content {
+    overflow-y: auto;
+    flex-grow: 1;
+}
