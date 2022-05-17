@@ -84,14 +84,14 @@ export class TtypesComponent implements OnInit {
 
   deleteType(type: any) {
     this.confirmationService.confirm({
-      message: 'Estas seguro sobre eliminar' + type.name + '?',
+      message: 'Estas seguro sobre eliminar ' + type.name + ' ?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         /*       this.types = this.types.filter(val => val.id !== type.id); */
         this._ticketService.deleteType(type.id).subscribe(
           resp => {
-            this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Registro borrado satisfactoriamenete', life: 3000 });
+            this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Registro eliminado satisfactoriamente', life: 3000 });
             this.getTypes()
           },
           err => {
