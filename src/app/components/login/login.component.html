@@ -1,12 +1,18 @@
 <!-- <div class="container" style="min-height: 100%;min-width: 100%; text-align: center;"> -->
-<div class="center-screen">
-  <div class="row">
+
+
+  
+<div class="d-flex align-items-center justify-content-center">
+  <div  class="d-flex align-items-center justify-content-center">
+    <div>
+      <div class="row">
     <div class="mainimg">
       <img src="../assets/tcs.gif">
     </div>
   </div>
-  <div class="row">
-    <div class="container">
+    <div class="row">
+
+    <div class="d-flex align-items-center justify-content-center">
       <button type="button" class="btn btn-success btn-lg" *ngIf="!loginDisplay" (click)="login()">Iniciar
         sesion</button>
       <button type="button" class="btn btn-primary btn-lg" *ngIf="loginDisplay" [routerLink]="['profile']">Continuar a
@@ -18,5 +24,9 @@
       <button type="button" class="btn btn-danger btn-lg" *ngIf="loginDisplay" (click)="logout()">Prefiero salir</button>
     </div>
   </div>
+    </div>
+ 
+ 
 
+</div>
 </div>

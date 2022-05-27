@@ -33,6 +33,8 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.msalGuardConfig.authRequest){
+      
+     
       this.authService.loginRedirect({...this.msalGuardConfig.authRequest} as RedirectRequest);
     } else {
       this.authService.loginRedirect();
@@ -45,6 +47,7 @@ export class LoginComponent implements OnInit {
   }
   
   setLoginDisplay() {
+    console.log('data logueado', this.authService.instance.getActiveAccount());
     this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
   }
 

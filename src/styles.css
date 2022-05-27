@@ -13,7 +13,7 @@ body {
 .container {
     margin: 1%;
 }
-
+/* 
 .center-screen {
     flex-direction: column;
 
@@ -33,7 +33,7 @@ body {
     border-radius: 25% 10%;
     
   
-}
+} */
 
 .mainimg {
     max-width: 200px;

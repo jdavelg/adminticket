@@ -8,7 +8,7 @@
   <button mat-raised-button *ngIf="!loginDisplay" (click)="login()">Login</button>
 
 </mat-toolbar> -->
-<div *ngIf="!loginDisplay">
+<div *ngIf="loginDisplay">
   <p-menubar [model]="items">
     <ng-template pTemplate="start">
       <a [routerLink]="['/']">
@@ -25,6 +25,10 @@
   </div>
 
 
+</div>
+
+<div *ngIf="!loginDisplay" >
+  <app-login></app-login>
 </div>
 <div class="ng-star-inserted">
   <div class="surface-section px-4 md:px-6 lg:px-8">
