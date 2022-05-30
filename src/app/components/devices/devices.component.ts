@@ -22,7 +22,7 @@ export class DevicesComponent implements OnInit {
   clonedDevices: { [s: string]: Device; } = {};
 
   deviceDialog: boolean;
-
+  newDeviceDialog: boolean;
   today = new Date()
 
   selectedDevices: Device[];
@@ -96,7 +96,7 @@ export class DevicesComponent implements OnInit {
   openNew() {
     this.device = {}
     this.submitted = false;
-    this.deviceDialog = true;
+    this.newDeviceDialog = true;
   }
 
   deleteSelectedDevices() {
@@ -128,6 +128,10 @@ export class DevicesComponent implements OnInit {
     this.device = { ...device };
     this.deviceDialog = true;
   }
+  newDevice(device: Device) {
+    this.device = { ...device };
+    this.newDeviceDialog = true;
+  }
 
   deleteDevice(device: any) {
     this.confirmationService.confirm({
@@ -157,6 +161,61 @@ export class DevicesComponent implements OnInit {
     this.submitted = false;
   }
 
+  hideNewDialog() {
+    this.device = {}
+    this.newDeviceDialog = false;
+    this.submitted = false;
+  }
+
+  saveNewDevice() {
+    this.submitted = true;
+    console.log(this.device);
+
+    if (this.device.inventory_cod !== undefined && this.device.inventory_cod!= null) {
+      if (this.device.created_at) {
+        delete this.device.created_at
+      }
+      if (this.device.updated_at) {
+        delete this.device.updated_at
+      }
+      console.log('date purchased',this.device.date_purchase);
+      
+      let dateToChange = new Date(this.device.date_purchase).toISOString().split('T')[0]
+      this.device.date_purchase = dateToChange
+      console.log('fecha cambiada',dateToChange);
+      delete this.device.fecha
+      this._deviceService.updateDevice(this.device).subscribe(
+        resp => {
+          this.hideNewDialog()
+          this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Registro guardado', life: 3000 });
+          this.getDevices()
+        },
+        err => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error en el servidor al guardar el registro', life: 3000 });
+          this.hideNewDialog()
+        }
+      )
+    } else {
+      console.log('date purchased',this.device.date_purchase);
+      
+      let dateToChange = new Date(this.device.date_purchase).toISOString().split('T')[0]
+      this.device.date_purchase = dateToChange
+      console.log('fecha cambiada',dateToChange);
+      delete this.device.fecha
+      this._deviceService.saveDevice(this.device).subscribe(
+        resp => {
+          this.hideNewDialog()
+          this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Registro guardado', life: 3000 });
+          this.getDevices()
+        },
+        err => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error en el servidor al guardar el registro', life: 3000 });
+          this.hideNewDialog()
+        }
+      )
+    }
+  }
+
   saveDevice() {
     this.submitted = true;
     console.log(this.device);
@@ -172,7 +231,7 @@ export class DevicesComponent implements OnInit {
       
       let dateToChange = new Date(this.device.date_purchase).toISOString().split('T')[0]
       this.device.date_purchase = dateToChange
-      console.log('fecha cambiada',this.device.date_purchase);
+      console.log('fecha cambiada',dateToChange);
       delete this.device.fecha
       this._deviceService.updateDevice(this.device).subscribe(
         resp => {
@@ -186,6 +245,12 @@ export class DevicesComponent implements OnInit {
         }
       )
     } else {
+      console.log('date purchased',this.device.date_purchase);
+      
+      let dateToChange = new Date(this.device.date_purchase).toISOString().split('T')[0]
+      this.device.date_purchase = dateToChange
+      console.log('fecha cambiada',dateToChange);
+      delete this.device.fecha
       this._deviceService.saveDevice(this.device).subscribe(
         resp => {
           this.hideDialog()

@@ -108,14 +108,16 @@ export class AppComponent implements OnInit, OnDestroy {
     
      
       this.authService.loginRedirect({ ...this.msalGuardConfig.authRequest } as RedirectRequest);
+    
     } else {
       this.authService.loginRedirect();
+        console.log('data logueado', this.authService.instance.getActiveAccount());
     }
   }
 
   setLoginDisplay() {
     this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
-    console.log('data logueado', this.authService.instance.getActiveAccount());
+  
   }
   logout() { // Add log out function here
     this.authService.logoutRedirect({

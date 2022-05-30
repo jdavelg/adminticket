@@ -36,7 +36,9 @@ export class LoginComponent implements OnInit {
       
      
       this.authService.loginRedirect({...this.msalGuardConfig.authRequest} as RedirectRequest);
+    
     } else {
+    
       this.authService.loginRedirect();
     }
   }
@@ -47,8 +49,20 @@ export class LoginComponent implements OnInit {
   }
   
   setLoginDisplay() {
-    console.log('data logueado', this.authService.instance.getActiveAccount());
-    this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
+   
+    if (this.authService.instance.getAllAccounts().length > 0) {
+      let mail=this.authService.instance.getAllAccounts()[0].username
+      let mailArr = mail.split('@', 2)
+      if (mailArr[1] == 'tcs246.com') {
+this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
+      console.log('data logueado', this.authService.instance.getAllAccounts());
+   /* SE DEBE HACER REQUEST PARA SABER SI ES ADMIN */
+
+      }else{
+        this.authService.logout()
+      }
+    }
+    
   }
 
   ngOnDestroy(): void {

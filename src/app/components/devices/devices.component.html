@@ -134,6 +134,7 @@
     </p-table>
 </div>
 
+<!-- UPDATE DIALOG -->
 <p-dialog [(visible)]="deviceDialog" [style]="{minWidth: '450px'}"  header="Dispositivo" [modal]="true"
     styleClass="p-fluid" [contentStyle]="{'overflow-y': 'auto', 'overflow-x': 'hidden', 
     'max-height': '80vh','min-height':'250px'}" >
@@ -297,5 +298,176 @@
         <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveDevice()"></button>
     </ng-template>
 </p-dialog>
+<!-- END UPdate dialog -->
+
+
+
+<!-- NEW DIALOG -->
+<p-dialog [(visible)]="newDeviceDialog" [style]="{minWidth: '450px'}"  header="Dispositivo" [modal]="true"
+    styleClass="p-fluid" [contentStyle]="{'overflow-y': 'auto', 'overflow-x': 'hidden', 
+    'max-height': '80vh','min-height':'250px'}" >
+    <ng-template pTemplate="content">
+
+        <!--   <div class="p-field">
+            <label for="id">ID</label>
+            <input type="text" pInputText id="id" [(ngModel)]="department.id"  autofocus readonly>
+            <small class="p-error" *ngIf="submitted && !department.name">id is required.</small>
+        </div> -->
+        <div class="field m-5">
+            <label for="mark_id" class="mb-3">
+
+                <p-dropdown [(ngModel)]="device.mark_id" inputId="mark_id" [filter]="true" filterBy="name"
+                    [showClear]="true" [options]="marks" placeholder="Selecciona una marca" optionValue="id"
+                   >
+                    <ng-template let-mark pTemplate="selectedItem">
+                        <div *ngIf="device.mark_id" class="country-item country-item-value">
+                            <div *ngIf="device.mark_id== mark.id">{{mark.name}}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template let-mark pTemplate="item">
+                        <div class="country-item">{{mark.name}}</div>
+                    </ng-template>
+                </p-dropdown>
+            </label>
+
+        </div>
+
+        <div class="field m-5">
+            <label for="model_id" class="mb-3">
+
+                <p-dropdown [(ngModel)]="device.model_id" inputId="model_id" [filter]="true" filterBy="name"
+                    [showClear]="true" [options]="models" placeholder="Selecciona el modelo" optionValue="id"
+                    >
+                    <ng-template let-model pTemplate="selectedItem">
+                        <div *ngIf="device.model_id" class="country-item country-item-value">
+                            <div *ngIf="device.model_id== model.id">{{model.name}}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template let-model pTemplate="item">
+                        <div class="country-item">{{model.name}}</div>
+                    </ng-template>
+                </p-dropdown>
+            </label>
+
+        </div>
+
+        <div class="field m-5">
+            <label for="equipment_types_id" class="mb-3">
+
+                <p-dropdown [(ngModel)]="device.equipment_types_id" inputId="equipment_types_id"
+                    [options]="equipmentTypes" [filter]="true" filterBy="name" [showClear]="true"
+                    placeholder="Selecciona el tipo de equipo" optionValue="id" >
+                    <ng-template let-type pTemplate="selectedItem">
+                        <div *ngIf="device.equipment_types_id" class="country-item country-item-value">
+                            <div *ngIf="device.equipment_types_id== type.id">{{type.name}}</div>
+                        </div>
+                    </ng-template>
+                    <ng-template let-type pTemplate="item">
+                        <div class="country-item">{{type.name}}</div>
+                    </ng-template>
+                </p-dropdown>
+            </label>
+
+        </div>
+
+        <div class="field m-5">
+            <label for="serial_number" class="mt-3">Numero de serie</label>
+            <input type="text" pInputText id="serial_number" [(ngModel)]="device.serial_number" required autofocus />
+            <small class="p-error" *ngIf="submitted && !device.serial_number">El numero de serie es requerido.</small>
+        </div>
+        <div class="field m-5">
+            <label for="date_purchase">Fecha de compra</label>
+            <p-calendar [(ngModel)]="device.date_purchase" dateFormat="dd.mm.yy" [showIcon]="true" [defaultDate]="null">
+            </p-calendar>
+            <small class="p-error" *ngIf="submitted && !device.date_purchase">la fecha de compra es requerida.</small>
+        </div>
+
+        <div class="field m-5">
+            <label for="price">Precio de compra</label>
+            <p-inputNumber [(ngModel)]="device.price" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
+            <small class="p-error" *ngIf="submitted && !device.price">El precio de compra es requerida.</small>
+        </div>
+
+        <div class="field m-5">
+            <label for="warranty">Dias de garantia</label>
+            <p-inputNumber [(ngModel)]="device.warranty"></p-inputNumber>
+            <small class="p-error" *ngIf="submitted && !device.warranty">La garantia de compra es requerida.</small>
+        </div>
+
+        <div class="field m-5">
+            <label for="preventive_maintenance">Periodicidad de mantenimiento(en dias)</label>
+            <p-inputNumber [(ngModel)]="device.preventive_maintenance"></p-inputNumber>
+            <small class="p-error" *ngIf="submitted && !device.preventive_maintenance">El mantenimiento es
+                requerido.</small>
+        </div>
+
+
+        <div class="field m-5">
+            <label for="specs">Especificaciones</label>
+            <input type="text" pInputText id="specs" [(ngModel)]="device.specs" required autofocus />
+            <small class="p-error" *ngIf="submitted && !device.specs">Las Especificaciones son requeridas.</small>
+        </div>
+
+        <!--  <div class="p-field">
+            <label for="created_at">Fecha de creacion</label>
+            <input mark="text" pInputText id="created_at" [(ngModel)]="department.created_at"  autofocus readonly>
+            <small class="p-error" *ngIf="submitted && !department.name">id is required.</small>
+        </div> -->
+        <!--   <div class="p-field">
+            <label for="description">Description</label>
+            <textarea id="description" pInputTextarea [(ngModel)]="department.description" required rows="3" cols="20"></textarea>
+        </div> -->
+        <!--      <div class="p-field">
+            <label for="inventoryStatus">Inventory Status</label>
+            <p-dropdown [(ngModel)]="department.inventoryStatus" inputId="inventoryStatus" [options]="statuses" placeholder="Select">
+                <ng-template let-option pTemplate="item">
+                    <span [class]="'department-badge status-' + option.value">{{option.label}}</span>
+                </ng-template>
+            </p-dropdown>
+        </div>
+
+        <div class="p-field">
+            <label class="p-mb-3">Category</label>
+            <div class="p-formgrid p-grid">
+                <div class="p-field-radiobutton p-col-6">
+                    <p-radioButton id="mark1" name="mark" value="Accessories" [(ngModel)]="department.mark"></p-radioButton>
+                    <label for="mark1">Accessories</label>
+                </div>
+                <div class="p-field-radiobutton p-col-6">
+                    <p-radioButton id="mark2" name="mark" value="Clothing" [(ngModel)]="department.mark"></p-radioButton>
+                    <label for="mark2">Clothing</label>
+                </div>
+                <div class="p-field-radiobutton p-col-6">
+                    <p-radioButton id="mark3" name="mark" value="Electronics" [(ngModel)]="department.mark"></p-radioButton>
+                    <label for="mark3">Electronics</label>
+                </div>
+                <div class="p-field-radiobutton p-col-6">
+                    <p-radioButton id="mark4" name="mark" value="Fitness" [(ngModel)]="department.mark"></p-radioButton>
+                    <label for="mark4">Fitness</label>
+                </div>
+            </div>
+        </div> -->
+
+        <!--  <div class="p-formgrid p-grid">
+            <div class="p-field p-col">
+                <label for="price">Price</label>
+                <p-inputNumber id="price" [(ngModel)]="department.price" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
+            </div>
+            <div class="p-field p-col">
+                <label for="quantity">Quantity</label>
+                <p-inputNumber id="quantity" [(ngModel)]="department.quantity"></p-inputNumber>
+            </div>
+        </div> -->
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideNewDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveNewDevice()"></button>
+    </ng-template>
+</p-dialog>
+<!-- END new dialog -->
+
+
 
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
