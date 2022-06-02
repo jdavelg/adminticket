@@ -1,7 +1,7 @@
 export interface Device {
     fecha?;
     inventory_cod?;
-    equipment_types_id?;
+    equipment_type_id?;
     model_id?;
     mark_id?;
     serial_number?;

@@ -16,7 +16,7 @@
     </p-toolbar>
 
     <p-table #dt [value]="devices" [rows]="10" [paginator]="true"
-        [globalFilterFields]="['model_id','inventory_cod','mark_id','equipment_types_id','serial_number','date_purchase']"
+        [globalFilterFields]="['model_id','inventory_cod','mark_id','equipment_type_id','serial_number','date_purchase']"
         responsiveLayout="scroll" [(selection)]="selectedDevices" [rowHover]="true" dataKey="inventory_cod"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
@@ -36,7 +36,7 @@
                 </th>
                 <th pSortableColumn="inventary_cod">Id <p-sortIcon field="id"></p-sortIcon>
                 </th>
-                <th pSortableColumn="equipment_types_id">Tipo de equipo <p-sortIcon field="equipment_types_id">
+                <th pSortableColumn="equipment_type_id">Tipo de equipo <p-sortIcon field="equipment_type_id">
                     </p-sortIcon>
                 <th pSortableColumn="model_id">Modelo <p-sortIcon field="model_id"></p-sortIcon>
                 <th pSortableColumn="mark_id">Marca <p-sortIcon field="mark_id"></p-sortIcon>
@@ -52,8 +52,8 @@
                 <th pSortableColumn="preventive_maintenance">Periodicidad de mantenimiento(dias)<p-sortIcon
                         field="preventive_maintenance"></p-sortIcon>
                 </th>
-                <th pSortableColumn="specs">Especificaciones<p-sortIcon field="specs"></p-sortIcon>
-                </th>
+             <!--    <th pSortableColumn="specs">Especificaciones<p-sortIcon field="specs"></p-sortIcon>
+                </th> -->
                 <th pSortableColumn="location">Ubicacion<p-sortIcon field="location"></p-sortIcon>
                 </th>
                 <th pSortableColumn="state">Estado<p-sortIcon field="state"></p-sortIcon>
@@ -76,7 +76,7 @@
                 </td>
                 <td *ngIf="equipmentTypes">
                     <ng-container *ngFor="let type of equipmentTypes">
-                        <strong *ngIf="device.equipment_types_id && type.id == device.equipment_types_id ; ">
+                        <strong *ngIf="device.equipment_type_id && type.id == device.equipment_type_id ; ">
                             {{type.name}}
                         </strong>
 
@@ -114,7 +114,7 @@
                 <td>{{device.warranty}}</td>
                 <td>{{device.price}}</td>
                 <td>{{device.preventive_maintenance}}</td>
-                <td>{{device.specs}}</td>
+               <!--  <td>{{device.specs}}</td> -->
                 <td>{{device.location}}</td>
                 <td>{{device.state}}</td>
 
@@ -184,14 +184,14 @@
         </div>
 
         <div class="field m-5">
-            <label for="equipment_types_id" class="mb-3">
+            <label for="equipment_type_id" class="mb-3">
 
-                <p-dropdown [(ngModel)]="device.equipment_types_id" inputId="equipment_types_id"
+                <p-dropdown [(ngModel)]="device.equipment_type_id" inputId="equipment_type_id"
                     [options]="equipmentTypes" [filter]="true" filterBy="name" [showClear]="true"
                     placeholder="Selecciona el tipo de equipo" optionValue="id" >
                     <ng-template let-type pTemplate="selectedItem">
-                        <div *ngIf="device.equipment_types_id" class="country-item country-item-value">
-                            <div *ngIf="device.equipment_types_id== type.id">{{type.name}}</div>
+                        <div *ngIf="device.equipment_type_id" class="country-item country-item-value">
+                            <div *ngIf="device.equipment_type_id== type.id">{{type.name}}</div>
                         </div>
                     </ng-template>
                     <ng-template let-type pTemplate="item">
@@ -350,16 +350,20 @@
             </label>
 
         </div>
-
         <div class="field m-5">
-            <label for="equipment_types_id" class="mb-3">
+            <label for="inventory_cod">Codigo de Inventario</label>
+            <input type="text" pInputText id="specs" [(ngModel)]="device.inventory_cod" required autofocus />
+            <small class="p-error" *ngIf="submitted && !device.inventory_cod">El codigo de inventario es requerido.</small>
+        </div>
+        <div class="field m-5">
+            <label for="equipment_type_id" class="mb-3">
 
-                <p-dropdown [(ngModel)]="device.equipment_types_id" inputId="equipment_types_id"
+                <p-dropdown [(ngModel)]="device.equipment_type_id" inputId="equipment_type_id"
                     [options]="equipmentTypes" [filter]="true" filterBy="name" [showClear]="true"
                     placeholder="Selecciona el tipo de equipo" optionValue="id" >
                     <ng-template let-type pTemplate="selectedItem">
-                        <div *ngIf="device.equipment_types_id" class="country-item country-item-value">
-                            <div *ngIf="device.equipment_types_id== type.id">{{type.name}}</div>
+                        <div *ngIf="device.equipment_type_id" class="country-item country-item-value">
+                            <div *ngIf="device.equipment_type_id== type.id">{{type.name}}</div>
                         </div>
                     </ng-template>
                     <ng-template let-type pTemplate="item">

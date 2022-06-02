@@ -77,13 +77,18 @@ export class DevicesComponent implements OnInit {
     )
 
   }
+addHours(numOfHours, date = new Date()) {
+    date.setTime(date.getTime() + numOfHours * 60 * 60 * 1000);
+  
+    return date;
+  }
   getDevices() {
     this._deviceService.getDevices().subscribe(
       resp => {
         resp.forEach((device: any) => {
           device.date_purchase = new Date(device.date_purchase)
-
-          device['fecha'] = new Date(device.date_purchase).toISOString().split('T')[0]
+/* device.date_purchase= this.addHours(6) */
+          device['fecha'] = new Date(device.date_purchase).toISOString().split('T')[0]  
         })
         this.devices = resp
       },
@@ -126,6 +131,9 @@ export class DevicesComponent implements OnInit {
 
   editDevice(device: Device) {
     this.device = { ...device };
+
+    console.log(this.device);
+    
     this.deviceDialog = true;
   }
   newDevice(device: Device) {
@@ -170,7 +178,7 @@ export class DevicesComponent implements OnInit {
   saveNewDevice() {
     this.submitted = true;
     console.log(this.device);
-
+/* 
     if (this.device.inventory_cod !== undefined && this.device.inventory_cod!= null) {
       if (this.device.created_at) {
         delete this.device.created_at
@@ -195,7 +203,7 @@ export class DevicesComponent implements OnInit {
           this.hideNewDialog()
         }
       )
-    } else {
+    } else { */
       console.log('date purchased',this.device.date_purchase);
       
       let dateToChange = new Date(this.device.date_purchase).toISOString().split('T')[0]
@@ -213,14 +221,14 @@ export class DevicesComponent implements OnInit {
           this.hideNewDialog()
         }
       )
-    }
+   /*  } */
   }
 
   saveDevice() {
     this.submitted = true;
     console.log(this.device);
 
-    if (this.device.inventory_cod !== undefined && this.device.inventory_cod!= null) {
+   /*  if (this.device.inventory_cod !== undefined && this.device.inventory_cod!= null) { */
       if (this.device.created_at) {
         delete this.device.created_at
       }
@@ -244,7 +252,7 @@ export class DevicesComponent implements OnInit {
           this.hideDialog()
         }
       )
-    } else {
+ /*    } else {
       console.log('date purchased',this.device.date_purchase);
       
       let dateToChange = new Date(this.device.date_purchase).toISOString().split('T')[0]
@@ -262,7 +270,7 @@ export class DevicesComponent implements OnInit {
           this.hideDialog()
         }
       )
-    }
+    } */
 
     /*    if (this.type.name) {
            if (this.product.id) {
